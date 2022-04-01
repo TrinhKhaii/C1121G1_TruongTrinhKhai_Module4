@@ -25,6 +25,7 @@
 
 <form:form method="post" action="/update" modelAttribute="medicalDeclaration">
     <div class="container">
+        <form:hidden path="id"/>
         <div class="row">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Họ Tên</label><span class="text-danger">(*)</span>

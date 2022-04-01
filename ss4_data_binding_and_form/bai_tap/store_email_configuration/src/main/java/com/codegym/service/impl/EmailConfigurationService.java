@@ -1,54 +1,40 @@
 package com.codegym.service.impl;
 /*
     Created by Trinh Khai
-    Date: 31/03/2022
-    Time: 10:47
+    Date: 01/04/2022
+    Time: 15:35
 */
 
 import com.codegym.model.EmailConfiguration;
+import com.codegym.repository.IEmailConfigurationRepository;
 import com.codegym.service.IEmailConfigurationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class EmailConfigurationService implements IEmailConfigurationService {
-    private static final List<EmailConfiguration> emailConfigurationList = new ArrayList<>();
-    static {
-        emailConfigurationList.add(new EmailConfiguration(1, "English", 10, true, "Khai..."));
-    }
+    @Autowired
+    private IEmailConfigurationRepository iEmailConfigurationRepository;
+
     @Override
     public List<EmailConfiguration> emailConfigurationList() {
-        return emailConfigurationList;
+        return iEmailConfigurationRepository.emailConfigurationList();
     }
 
     @Override
     public void save(EmailConfiguration emailConfiguration) {
-        emailConfiguration.setId(emailConfigurationList.get(emailConfigurationList.size() - 1).getId() + 1);
-        emailConfigurationList.add(emailConfiguration);
+        iEmailConfigurationRepository.save(emailConfiguration);
     }
 
     @Override
     public EmailConfiguration getEmailConfigurationById(Integer id) {
-        for (EmailConfiguration e: emailConfigurationList) {
-            if (Objects.equals(e.getId(), id)) {
-                return e;
-            }
-        }
-        return null;
+        return iEmailConfigurationRepository.getEmailConfigurationById(id);
     }
 
     @Override
     public void updateEmailConfiguration(EmailConfiguration emailConfiguration) {
-        for (EmailConfiguration e: emailConfigurationList) {
-            if (Objects.equals(e.getId(), emailConfiguration.getId())) {
-                e.setLanguage(emailConfiguration.getLanguage());
-                e.setPageSize(emailConfiguration.getPageSize());
-                e.setSpamsFilter(emailConfiguration.isSpamsFilter());
-                e.setSignature(emailConfiguration.getSignature());
-            }
-        }
+        iEmailConfigurationRepository.updateEmailConfiguration(emailConfiguration);
     }
 }

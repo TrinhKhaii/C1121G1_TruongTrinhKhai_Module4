@@ -1,6 +1,7 @@
 package com.codegym.controller;
 
 import com.codegym.model.MedicalDeclaration;
+import com.codegym.repository.IMedicalRepository;
 import com.codegym.service.IMedicalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

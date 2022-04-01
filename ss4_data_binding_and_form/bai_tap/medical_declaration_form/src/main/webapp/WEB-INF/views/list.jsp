@@ -12,7 +12,7 @@
     <title>List</title>
 </head>
 <body>
-<h3><a href="/create">Add new email configuration</a></h3>
+<h3><a href="/create">Add new</a></h3>
 <table border="1">
     <tr>
         <th>Tên</th>
