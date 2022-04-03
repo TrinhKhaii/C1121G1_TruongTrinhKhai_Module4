@@ -9,10 +9,8 @@ import com.codegym.model.Product;
 import com.codegym.repository.IProductRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 @Repository
 public class ProductRepository implements IProductRepository {
     private static final Map<Integer, Product> productList;
@@ -32,7 +30,12 @@ public class ProductRepository implements IProductRepository {
 
     @Override
     public Product findById(Integer id) {
-        return productList.get(id);
+        for (Map.Entry<Integer, Product> item : productList.entrySet()) {
+            if (Objects.equals(item.getValue().getId(), id)) {
+                return productList.get(id);
+            }
+        }
+        return null;
     }
 
     @Override
