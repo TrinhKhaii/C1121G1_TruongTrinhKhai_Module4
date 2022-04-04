@@ -5,46 +5,61 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="baffe98d-300c-4d33-8b48-a7a8a194d1b3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/.idea/webContexts.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/src/main/java/music_app/config/AppConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/src/main/java/music_app/config/AppInitializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/src/main/java/music_app/config/CharsetFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/src/main/java/music_app/controller/MusicController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/src/main/java/music_app/model/Music.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/src/main/java/music_app/repository/IMusicRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/src/main/java/music_app/repository/impl/MusicRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/src/main/java/music_app/service/IMusicService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/src/main/java/music_app/service/impl/MusicService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/src/main/webapp/WEB-INF/views/create.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/src/main/webapp/WEB-INF/views/layout.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/src/main/webapp/WEB-INF/views/list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/product_management/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/product_management/build/classes/java/main/com/codegym/configuration/AppConfiguration.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/product_management/build/classes/java/main/com/codegym/configuration/AppInitializer.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/product_management/build/classes/java/main/com/codegym/configuration/CharsetFilter.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/product_management/build/classes/java/main/com/codegym/controller/ProductController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/product_management/build/classes/java/main/com/codegym/model/Product.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/product_management/build/classes/java/main/com/codegym/repository/IProductRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/product_management/build/classes/java/main/com/codegym/repository/impl/ProductRepository.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/product_management/build/classes/java/main/com/codegym/service/IProductService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/product_management/build/classes/java/main/com/codegym/service/impl/ProductService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../bai_tap/product_management/src/main/java/com/codegym/configuration/AppConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.gradle/7.1/dependencies-accessors/dependencies-accessors.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.gradle/7.1/dependencies-accessors/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.gradle/7.1/executionHistory/executionHistory.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.gradle/7.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.gradle/7.1/fileChanges/last-build.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.gradle/7.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.gradle/7.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.gradle/7.1/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.gradle/vcs-1/gc.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/build/classes/java/main/photo/configuration/AppConfiguration.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/build/classes/java/main/photo/configuration/AppInitializer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/build/classes/java/main/photo/configuration/CharsetFilter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/build/classes/java/main/photo/controller/FeedbackController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/build/classes/java/main/photo/model/Feedback.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/build/classes/java/main/photo/repository/IFeedbackRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/build/classes/java/main/photo/repository/impl/FeedbackRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/build/libs/photo_of_the_day-1.0-SNAPSHOT.war" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/build/tmp/war/MANIFEST.MF" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/src/main/java/photo/configuration/AppConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/src/main/java/photo/configuration/AppInitializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/src/main/java/photo/configuration/CharsetFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/src/main/java/photo/controller/FeedbackController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/src/main/java/photo/model/Feedback.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/src/main/java/photo/repository/IFeedbackRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/src/main/java/photo/repository/impl/FeedbackRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/src/main/java/photo/service/IFeedbackService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/src/main/java/photo/service/impl/FeedbackService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../bai_tap/photo_of_the_day/src/main/webapp/WEB-INF/views/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../bai_tap/music_player_app/.gradle/7.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/.gradle/7.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../bai_tap/music_player_app/.gradle/7.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/.gradle/7.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../bai_tap/music_player_app/.gradle/7.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/.gradle/7.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../bai_tap/music_player_app/.gradle/7.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/.gradle/7.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../bai_tap/music_player_app/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bai_tap/music_player_app/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bai_tap/music_player_app/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bai_tap/music_player_app/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/.gradle/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bai_tap/music_player_app/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../bai_tap/music_player_app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../bai_tap/music_player_app/src/main/webapp/index.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../bai_tap/music_player_app/build/libs/music_player_app-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/build/libs/music_player_app-1.0-SNAPSHOT.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../bai_tap/music_player_app/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../bai_tap/music_player_app/src/main/webapp/WEB-INF/views/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../bai_tap/music_player_app/src/main/webapp/WEB-INF/views/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../bai_tap/product_management/.gradle/7.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../bai_tap/product_management/.gradle/7.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

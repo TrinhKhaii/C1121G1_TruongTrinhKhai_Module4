@@ -45,15 +45,20 @@
                 <tbody>
                 <tr th:each="music,loop : ${musicList}">
                     <td th:text="${loop.count}"></td>
-                    <td><a class="text-decoration-none text-primary" th:href="@{/music/view/{id}(id=${music.id})}" th:text="${music.name}"></a></td>
+                    <td><a class="text-decoration-none text-primary" th:href="@{/music/view/{id}(id=${music.id})}"
+                           th:text="${music.name}"></a></td>
                     <td th:text="${music.singer}"></td>
                     <td th:text="${music.musicGenre}"></td>
-                    <td><a class="text-decoration-none text-primary" th:href="${music.musicFilePath}" th:text="Youtube"></a></td>
+                    <td><a class="text-decoration-none text-primary" th:href="${music.musicFilePath}"
+                           th:text="Youtube"></a></td>
                     <td>
-                        <a style="text-decoration: none" th:href="@{/music/edit/{id}(id=${music.id})}" class="btn btn-primary text-white">Edit</a>
+                        <a style="text-decoration: none" th:href="@{/music/edit/{id}(id=${music.id})}"
+                           class="btn btn-primary text-white">Edit</a>
                     </td>
                     <td>
-                        <a class="btn btn-primary text-white" href="#deleteEmployeeModal" data-toggle="modal" th:onclick="'sendProductInfo(\''+${music.id}+'\',\''+${music.name}+'\')'">Delete</a>
+                        <a class="btn btn-primary text-white" href="#deleteEmployeeModal" data-toggle="modal"
+                           onclick="sendMusicInfo($(this))" th:data-name="${music.name}" th:data-id="${music.id}">Delete</a>
+
                     </td>
                 </tr>
                 </tbody>
@@ -62,12 +67,13 @@
     </div>
 </div>
 
+<input type="hidden" id="aaa">
 <!-- Delete Modal HTML -->
 <div id="deleteEmployeeModal" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <form method="post" action="/music/delete">
-                <input type="hidden" name="idDelete" id="idDelete">
+                <input type="text" name="idDelete" id="idDelete">
                 <div class="modal-header">
                     <h4 class="modal-title">Delete Product</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -89,10 +95,13 @@
 </body>
 <th:block th:replace="/layout :: script">
 </th:block>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script>
-    function sendProductInfo(id,name) {
-        document.getElementById("idDelete").value = id ;
-        document.getElementById("deleteName").innerText = name ;
+    function sendMusicInfo(a) {
+        let id = a.attr('data-id');
+        let name = a.attr('data-name');
+        document.getElementById("idDelete").value = id;
+        document.getElementById("deleteName").innerText = name;
     }
 </script>
-</html>
+</html>                          `

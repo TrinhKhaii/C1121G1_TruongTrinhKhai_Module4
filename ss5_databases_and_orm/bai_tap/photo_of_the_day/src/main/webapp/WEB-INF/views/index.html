@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Picture Of A Day</title>
+</head>
+<body>
+<img id="img-of-the-day" height="400" width="400">
+<br>
+<form action="/picture/create" method="post" th:object="${feedback}">
+    <table>
+        <tr>
+            <th>Rate :</th>
+            <td>
+                <select th:field="*{rate}">
+                    <option th:value="1">1.Very bad</option>
+                    <option th:value="2">2.Bad</option>
+                    <option th:value="3">3.Normal</option>
+                    <option th:value="4">4.Good</option>
+                    <option selected th:value="5">5.So awesome</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Author :</th>
+            <td><input type="text" th:value="*{authorName}"></td>
+        </tr>
+        <tr>
+            <th>Feedback :</th>
+            <td><textarea th:field="*{feedback}"></textarea></td>
+        </tr>
+        <tr>
+            <td><input type="hidden" th:field="*{commentDay}" th:value="${now}">
+                <input type="hidden" id="pictureUrl" name="pictureUrl"></td>
+            <td><input type="submit" value="Comment"></td>
+        </tr>
+    </table>
+</form>
+<table>
+    <tr th:each="feedback, loop : ${feedbackList}">
+        <td>
+            <h3 th:text="${feedback.authorName}"></h3>
+            <h3>+<span th:text="${feedback.rate}"></span></h3>
+        </td>
+        <td>
+            <h4><span th:text="${feedback.likeNumber}"></span> likes</h4>
+            <a th:href="@{/picture/like/{id}(id=${feedback.id})}" class="fa fa-thumbs-up"></a>
+        </td>
+    </tr>
+</table>
+
+</body>
+<script>
+    let query = 'https://api.nasa.gov/planetary/apod?api_key=gStJ8PIuneHi4mviy838BWXl8TYoXZM0MQvhRM5J';
+    let request = new XMLHttpRequest();
+    let srcUrl = "";
+    request.open('GET', query);
+    request.onload = function () {
+        if (request.status === 200) {
+            let response = JSON.parse(request.responseText);
+            srcUrl = response.url;
+            document.getElementById('img-of-the-day').setAttribute('src', response.url);
+            document.getElementById("pictureUrl").value = srcUrl;
+        }
+    };
+    request.send();
+</script>
+</html>
