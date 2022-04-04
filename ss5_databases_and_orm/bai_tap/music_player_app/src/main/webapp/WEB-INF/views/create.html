@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Music</title>
+    <style th:replace="/layout :: style"></style>
+    <th:block th:replace="/layout :: linkHead"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <form method="post" th:action="@{/music/save}" th:object="${music}">
+                <div class="modal-header">
+                    <h4 class="modal-title text-primary">Add new music</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input  type="text" class="form-control" th:field="*{name}"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Single</label>
+                        <input  type="text" class="form-control" th:field="*{singer}"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Music genre</label>
+                        <input  type="text" class="form-control" th:field="*{musicGenre}"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Music file path</label>
+                        <input  type="text" class="form-control" th:field="*{musicFilePath}"/>
+                    </div>
+                    <div class="modal-footer">
+                        <a th:href="@{/music}" class="btn btn-dark">Huỷ</a>
+                        <input type="submit" class="btn btn-info" value="Thêm mới">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="/layout :: footer"></footer>
+</body>
+<th:block th:replace="/layout :: script"/>
+</html>
