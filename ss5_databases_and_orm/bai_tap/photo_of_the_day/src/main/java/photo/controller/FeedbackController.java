@@ -28,7 +28,6 @@ public class FeedbackController {
     public ModelAndView showList() {
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("feedback", new Feedback());
-        modelAndView.addObject("now", java.time.LocalDate.now());
         List<Feedback> feedbackList = iFeedbackService.findAll();
         modelAndView.addObject("feedbackList", feedbackList);
         return modelAndView;
@@ -37,6 +36,8 @@ public class FeedbackController {
     @PostMapping(value = "create")
     public String create(@ModelAttribute("feedback")Feedback feedback, Model model) {
         feedback.setLikeNumber(0);
+        feedback.setCommentDay(String.valueOf(java.time.LocalDate.now()));
+        System.out.println(feedback);
         iFeedbackService.save(feedback);
         return "redirect:/picture";
     }

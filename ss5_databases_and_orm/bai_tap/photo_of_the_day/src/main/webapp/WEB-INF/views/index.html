@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Picture Of A Day</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <img id="img-of-the-day" height="400" width="400">
@@ -23,14 +24,14 @@
         </tr>
         <tr>
             <th>Author :</th>
-            <td><input type="text" th:value="*{authorName}"></td>
+            <td><input type="text" th:field="*{authorName}"></td>
         </tr>
         <tr>
             <th>Feedback :</th>
             <td><textarea th:field="*{feedback}"></textarea></td>
         </tr>
         <tr>
-            <td><input type="hidden" th:field="*{commentDay}" th:value="${now}">
+            <td><input type="hidden" th:field="*{commentDay}">
                 <input type="hidden" id="pictureUrl" name="pictureUrl"></td>
             <td><input type="submit" value="Comment"></td>
         </tr>

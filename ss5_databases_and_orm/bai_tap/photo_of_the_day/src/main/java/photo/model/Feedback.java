@@ -80,4 +80,16 @@ public class Feedback {
     public void setCommentDay(String commentDay) {
         this.commentDay = commentDay;
     }
+
+    @Override
+    public String toString() {
+        return "Feedback{" +
+                "id=" + id +
+                ", rate=" + rate +
+                ", authorName='" + authorName + '\'' +
+                ", feedback='" + feedback + '\'' +
+                ", likeNumber=" + likeNumber +
+                ", commentDay='" + commentDay + '\'' +
+                '}';
+    }
 }

@@ -40,6 +40,6 @@ public class FeedbackRepository implements IFeedbackRepository {
 
     @Override
     public Feedback findById(int id) {
-        return entityManager.find(Feedback.class , id);
+        return entityManager.find(Feedback.class, id);
     }
 }
