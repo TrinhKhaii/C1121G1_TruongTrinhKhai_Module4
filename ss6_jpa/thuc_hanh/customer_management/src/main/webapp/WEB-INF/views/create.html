@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Customer</title>
+    <style th:replace="/layout :: style"></style>
+    <th:block th:replace="/layout :: linkHead"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <form method="post" th:action="@{/customers/save}" th:object="${customer}">
+                <div class="modal-header">
+                    <h4 class="modal-title text-primary">Thêm mới khách hàng</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Họ</label>
+                        <input  type="text" class="form-control" th:field="*{lastName}"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Tên</label>
+                        <input  type="text" class="form-control" th:field="*{firstName}"/>
+                    </div>
+                    <div class="modal-footer">
+                        <a th:href="@{/music}" class="btn btn-dark">Huỷ</a>
+                        <input type="submit" class="btn btn-info" value="Thêm mới">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="/layout :: footer"></footer>
+</body>
+<th:block th:replace="/layout :: script"/>
+</html>
