@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Blog</title>
+    <style th:replace="/blog/layout :: style"></style>
+    <th:block th:replace="/blog/layout :: linkHead"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <form method="post" th:action="@{/category/update}" th:object="${category}">
+                <input type="hidden" name="id" th:field="*{categoryId}">
+                <div class="modal-header">
+                    <h4 class="modal-title text-primary">Chỉnh sửa thông tin category</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Tên</label>
+                        <input  type="text" class="form-control" th:field="*{categoryName}"/>
+                    </div>
+                    <div class="modal-footer">
+                        <a th:href="@{/category}" class="btn btn-dark">Huỷ</a>
+                        <input type="submit" class="btn btn-info" value="OK">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="/blog/layout :: footer"></footer>
+</body>
+<th:block th:replace="/blog/layout :: script"/>
+</html>

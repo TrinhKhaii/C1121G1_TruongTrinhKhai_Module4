@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Blog</title>
+    <style th:replace="/blog/layout :: style"></style>
+    <th:block th:replace="/blog/layout :: linkHead"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <form method="post" th:action="@{/blog/update}" th:object="${blog}">
+                <input type="hidden" name="id" th:field="*{blogId}">
+                <div class="modal-header">
+                    <h4 class="modal-title text-primary">Chỉnh sửa thông tin Blog</h4>
+                </div>
+                <div class="modal-body">
+                    <label>Nội dung</label>
+                    <select th:field="*{category}">
+                        <option th:each="c : ${categories}" th:value="${c.categoryId}" th:text="${c.categoryName}"></option>
+                    </select>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Tác giả</label>
+                        <input  type="text" class="form-control" th:field="*{blogAuthor}"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Nội dung</label>
+                        <input  type="text" class="form-control" th:field="*{blogContent}"/>
+                    </div>
+                    <div class="modal-footer">
+                        <a th:href="@{/music}" class="btn btn-dark">Huỷ</a>
+                        <input type="submit" class="btn btn-info" value="OK">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="/blog/layout :: footer"></footer>
+</body>
+<th:block th:replace="/blog/layout :: script"/>
+</html>

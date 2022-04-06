@@ -9,6 +9,8 @@ import blog.model.Blog;
 import blog.repository.IBlogRepository;
 import blog.service.IBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,16 @@ public class BlogSercice implements IBlogService {
 
     @Autowired
     private IBlogRepository iBlogRepository;
+
+    @Override
+    public Page<Blog> findAllBlog(Pageable pageable) {
+        return iBlogRepository.findAllByOrderByCreateDate(pageable);
+    }
+
+    @Override
+    public Page<Blog> findBlogByName(String keyword, Pageable pageable) {
+        return iBlogRepository.findAllByBlogAuthorContainingOrderByCreateDate(keyword, pageable);
+    }
 
     @Override
     public List<Blog> findAll() {
