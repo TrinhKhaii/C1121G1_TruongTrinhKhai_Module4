@@ -16,7 +16,7 @@ public class Category {
     private Integer categoryId;
     private String categoryName;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.ALL}, orphanRemoval = true)
     private List<Blog> blogs;
 
     public Category() {

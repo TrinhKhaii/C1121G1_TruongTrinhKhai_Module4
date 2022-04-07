@@ -62,9 +62,7 @@ public class BlogController {
 
     @PostMapping(value = "/save")
     public String save(@ModelAttribute("blog") Blog blog) {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = new Date();
-        blog.setCreateDate(formatter.format(date));
+
         iBlogService.save(blog);
         return "redirect:/blog";
     }
