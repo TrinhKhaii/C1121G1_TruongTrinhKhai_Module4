@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Blog</title>
+    <style th:replace="/layout :: style"></style>
+    <th:block th:replace="/layout :: linkHead"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <form method="post" th:action="@{/passbook/update}" th:object="${passbookDto}">
+                <input type="hidden" name="id" th:field="*{passbookId}">
+                <div class="modal-header">
+                    <h4 class="modal-title text-primary">Chỉnh sửa thông tin sổ tiết kiệm</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Mã khách hàng</label>
+                        <input  type="text" class="form-control" th:field="*{customerDto.customerCode}" readonly/>
+                        <small class="error" th:if="${#fields.hasErrors('customerDto.customerCode')}" th:errors="*{customerDto.customerCode}"></small>
+                    </div>
+                    <div class="form-group">
+                        <label>Tên khách hàng</label>
+                        <input  type="text" class="form-control" th:field="*{customerDto.customerName}" readonly/>
+                        <small class="error" th:if="${#fields.hasErrors('customerDto.customerName')}" th:errors="*{customerDto.customerName}"></small>
+                    </div>
+                    <div class="form-group">
+                        <label>Thời gian bắt đầu gửi</label>
+                        <input  type="date" class="form-control" th:field="*{startDate}"/>
+                        <small class="error" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></small>
+                    </div>
+                    <div class="form-group">
+                        <label>Kỳ hạn</label>
+                        <select th:field="*{period}" class="form-control">
+                            <option th:each="item: ${periods}" th:value="${item}" th:text="${item}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Số tiền gửi</label>
+                        <input  type="text" class="form-control" th:field="*{depositAmount}"/>
+                        <small class="error" th:if="${#fields.hasErrors('depositAmount')}" th:errors="*{depositAmount}"></small>
+                    </div>
+                    <div class="modal-footer">
+                        <a th:href="@{/passbook}" class="btn btn-dark">Huỷ</a>
+                        <input type="submit" class="btn btn-info" value="Cập nhật">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="/layout :: footer"></footer>
+</body>
+<th:block th:replace="/layout :: script"/>
+</html>
