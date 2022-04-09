@@ -8,8 +8,9 @@ package passbook.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import passbook.model.Customer;
 
-import java.util.List;
 
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     Customer findAllByCustomerCodeAndAndCustomerNameEquals(String code, String name);
+
+    Customer findAllByCustomerCodeEquals(String code);
 }

@@ -66,15 +66,17 @@ public class CustomerDto implements Validator {
     public boolean supports(Class<?> clazz) {
         return false;
     }
+    @Autowired
+    private ICustomerService iCustomerService;
 
     @Override
     public void validate(Object target, Errors errors) {
         CustomerDto customerDto = (CustomerDto) target;
         String customerCode = customerDto.getCustomerCode();
-        String customerName = customerDto.getCustomerName();
 
-//        if (!customers.isEmpty()) {
-//            errors.rejectValue("customer", "customer.data", "Already exist this customer.");
-//        }
+        Customer customer = iCustomerService.findByCode(customerCode);
+        if (customer.getCustomerCode().equals(customerDto.getCustomerCode()) && !customer.getCustomerName().equals(customerDto.getCustomerName())) {
+            errors.rejectValue("customerCode", "customerCode.exist", "Already exist this customer code.");
+        }
     }
 }

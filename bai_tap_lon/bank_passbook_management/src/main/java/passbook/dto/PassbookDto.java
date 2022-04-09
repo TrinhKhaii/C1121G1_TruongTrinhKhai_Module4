@@ -5,18 +5,15 @@ package passbook.dto;
     Time: 09:06
 */
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-import passbook.model.Customer;
-import passbook.repository.ICustomerRepository;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 
 public class PassbookDto implements Validator {
@@ -96,9 +93,16 @@ public class PassbookDto implements Validator {
     public void validate(Object target, Errors errors) {
         PassbookDto passbookDto = (PassbookDto) target;
         String startDate = passbookDto.getStartDate();
-        Integer period = passbookDto.getPeriod();
-        Double depositAmount = passbookDto.getDepositAmount();
 
+        if (startDate.matches("^\\d{4}[\\-\\/\\s]?((((0[13578])|(1[02]))[\\-\\/\\s]?(([0-2][0-9])|(3[01])))|(((0[469])|(11))[\\-\\/\\s]?(([0-2][0-9])|(30)))|(02[\\-\\/\\s]?[0-2][0-9]))$")) {
 
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate now = LocalDate.now();
+            LocalDate date = LocalDate.parse(startDate, fmt);
+
+            if (date.isBefore(now)) {
+                errors.rejectValue("startDate", "createDate.before", "The date you entered is not valid");
+            }
+        }
     }
 }

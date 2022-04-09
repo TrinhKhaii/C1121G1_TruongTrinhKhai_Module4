@@ -21,4 +21,9 @@ public class CustomerService implements ICustomerService {
     public Customer findByNameAndCode(String code, String name) {
         return iCustomerRepository.findAllByCustomerCodeAndAndCustomerNameEquals(code, name);
     }
+
+    @Override
+    public Customer findByCode(String code) {
+        return iCustomerRepository.findAllByCustomerCodeEquals(code);
+    }
 }

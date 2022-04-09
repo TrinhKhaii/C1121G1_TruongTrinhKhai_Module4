@@ -11,4 +11,6 @@ import java.util.List;
 
 public interface ICustomerService {
     Customer findByNameAndCode(String code, String name);
+
+    Customer findByCode(String code);
 }

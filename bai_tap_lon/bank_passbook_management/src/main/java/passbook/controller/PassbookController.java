@@ -55,25 +55,23 @@ public class PassbookController {
     @PostMapping(value = "/save")
     public String save(@Valid @ModelAttribute("passbookDto") PassbookDto passbookDto,
                        BindingResult bindingResult) {
-        new PassbookDto().validate(passbookDto, bindingResult);`
+        new PassbookDto().validate(passbookDto, bindingResult);
         if (bindingResult.hasErrors()) {
             return "/passbook/create";
         }
         Passbook passbook = new Passbook();
         BeanUtils.copyProperties(passbookDto, passbook);
-        Customer customer1 = iCustomerService.findByNameAndCode(passbookDto.getCustomerDto().getCustomerCode(), passbookDto.getCustomerDto().getCustomerName());
+        Customer customerExist = iCustomerService.findByNameAndCode(passbookDto.getCustomerDto().getCustomerCode(), passbookDto.getCustomerDto().getCustomerName());
         Customer customer = new Customer();
 
-
-        if (!customer1.) {
-            customer.setCustomerId(passbookDto.getCustomerDto().getCustomerId());
+        if (!(customerExist == null)) {
+            passbook.setCustomer(customerExist);
         } else {
-//            customer.setCustomerId(passbookDto.getCustomerDto().getCustomerId());
+            customer.setCustomerId(passbookDto.getCustomerDto().getCustomerId());
             customer.setCustomerCode(passbookDto.getCustomerDto().getCustomerCode());
             customer.setCustomerName(passbookDto.getCustomerDto().getCustomerName());
+            passbook.setCustomer(customer);
         }
-        passbook.setCustomer(customer);
-
         iPassbookService.save(passbook);
         return "redirect:/passbook";
     }
