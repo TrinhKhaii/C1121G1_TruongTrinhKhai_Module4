@@ -8,5 +8,8 @@ package passbook.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import passbook.model.Passbook;
 
+import java.util.List;
+
 public interface IPassbookRepository extends JpaRepository<Passbook, Integer> {
+    List<Passbook> findAllByCustomer_CustomerNameContaining(String name);
 }

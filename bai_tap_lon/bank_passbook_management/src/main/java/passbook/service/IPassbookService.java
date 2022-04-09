@@ -5,8 +5,6 @@ package passbook.service;
     Time: 08:58
 */
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import passbook.model.Passbook;
 
 import java.util.List;
@@ -20,7 +18,13 @@ public interface IPassbookService {
 
     void remove(Integer id);
 
-//    Page<Passbook> findAllPassbook(Pageable pageable);
+    List<Passbook> searchByAll(String startDate, String endDate, String name);
 
-//    Page<Passbook> findPassbookByName(String keyword, Pageable pageable);
+    List<Passbook> searchByDayStartAndDayEnd(String startDate, String endDate);
+
+    List<Passbook> searchByDate(String date);
+
+    List<Passbook> searchByName(String name);
+
+    List<Passbook> searchByDateAndName(String date, String name);
 }

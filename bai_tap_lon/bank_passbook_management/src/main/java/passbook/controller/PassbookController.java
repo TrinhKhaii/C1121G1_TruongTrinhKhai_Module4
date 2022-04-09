@@ -17,6 +17,7 @@ import passbook.service.IPassbookService;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /*
     Created by Trinh Khai
@@ -99,7 +100,7 @@ public class PassbookController {
             return "/passbook/edit";
         }
         Passbook passbook = new Passbook();
-        BeanUtils.copyProperties(passbookDto, passbook);
+            BeanUtils.copyProperties(passbookDto, passbook);
         Customer customer = new Customer();
         customer.setCustomerId(passbookDto.getCustomerDto().getCustomerId());
         customer.setCustomerCode(passbookDto.getCustomerDto().getCustomerCode());
@@ -112,6 +113,59 @@ public class PassbookController {
     @PostMapping(value = "/delete")
         public String delete(@RequestParam("idDelete") Integer idDelete) {
         iPassbookService.remove(idDelete);
+        return "redirect:/passbook";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam("startDay") Optional<String> startDay,
+                         @RequestParam("endDay") Optional<String> endDay,
+                         @RequestParam("searchName") Optional<String> searchName,
+                         Model model) {
+        List<Passbook> passbooks;
+        if ((!startDay.isPresent() || startDay.get().equals(""))&& (!endDay.isPresent() &&  endDay.get().equals(""))) {
+            if (searchName.isPresent() && !(searchName.get().equals(""))) {
+                passbooks = iPassbookService.searchByName(searchName.get());
+                model.addAttribute("searchValue",searchName.get());
+                model.addAttribute("passbooks", passbooks);
+                return "/passbook/list";
+            } else {
+                return "redirect:/passbook";
+            }
+        }
+
+        if (startDay.isPresent() && !(startDay.get().equals(""))) {
+            if (endDay.isPresent() && !(endDay.get().equals(""))) {
+                if (searchName.isPresent()) {
+                    passbooks = iPassbookService.searchByAll(startDay.get(), endDay.get(), searchName.get());
+                    model.addAttribute("start",startDay.get());
+                    model.addAttribute("end",endDay.get());
+                    model.addAttribute("searchValue",searchName.get());
+                    model.addAttribute("passbooks", passbooks);
+                    return "/passbook/list";
+                } else {
+                    passbooks = iPassbookService.searchByDayStartAndDayEnd(startDay.get(), endDay.get());
+                    model.addAttribute("start",startDay.get());
+                    model.addAttribute("end",endDay.get());
+                    model.addAttribute("passbooks", passbooks);
+                    return "/passbook/list";
+                }
+            } else {
+                if (searchName.isPresent()) {
+                    passbooks = iPassbookService.searchByDateAndName(startDay.get(), searchName.get());
+                    model.addAttribute("start",startDay.get());
+                    model.addAttribute("searchValue",searchName.get());
+                    model.addAttribute("passbooks", passbooks);
+                    return "/passbook/list";
+                } else {
+                    passbooks = iPassbookService.searchByDate(startDay.get());
+                    model.addAttribute("start",startDay.get());
+                    model.addAttribute("soTietKiemList", passbooks);
+                    return "/passbook/list";
+                }
+
+            }
+        }
+
         return "redirect:/passbook";
     }
 }

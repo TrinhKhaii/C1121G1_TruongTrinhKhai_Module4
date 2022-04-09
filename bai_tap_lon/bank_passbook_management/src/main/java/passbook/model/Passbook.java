@@ -15,7 +15,7 @@ public class Passbook {
     private String startDate;
     private Integer period;
     private Double depositAmount;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "customer_id", referencedColumnName = "customerId")
     private Customer customer;
 

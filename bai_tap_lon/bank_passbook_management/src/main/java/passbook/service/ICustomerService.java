@@ -7,7 +7,6 @@ package passbook.service;
 
 import passbook.model.Customer;
 
-import java.util.List;
 
 public interface ICustomerService {
     Customer findByNameAndCode(String code, String name);

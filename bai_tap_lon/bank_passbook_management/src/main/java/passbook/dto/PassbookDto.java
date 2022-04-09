@@ -5,8 +5,11 @@ package passbook.dto;
     Time: 09:06
 */
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+import passbook.model.Customer;
+import passbook.service.ICustomerService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -17,6 +20,9 @@ import java.time.format.DateTimeFormatter;
 
 
 public class PassbookDto implements Validator {
+    @Autowired
+    private ICustomerService iCustomerService;
+
     private Integer passbookId;
 
     @NotEmpty(message = "Start day can not empty.")
@@ -103,6 +109,14 @@ public class PassbookDto implements Validator {
             if (date.isBefore(now)) {
                 errors.rejectValue("startDate", "createDate.before", "The date you entered is not valid");
             }
+        }
+
+        CustomerDto customerDto = passbookDto.getCustomerDto();
+        String customerCode = customerDto.getCustomerCode();
+
+        Customer customer = iCustomerService.findByCode(customerCode);
+        if (customer.getCustomerCode().equals(customerDto.getCustomerCode()) && !customer.getCustomerName().equals(customerDto.getCustomerName())) {
+            errors.rejectValue("customerCode", "customerCode.exist", "Already exist this customer code.");
         }
     }
 }

@@ -11,7 +11,6 @@ import passbook.model.Customer;
 import passbook.repository.ICustomerRepository;
 import passbook.service.ICustomerService;
 
-import java.util.List;
 @Service
 public class CustomerService implements ICustomerService {
     @Autowired
