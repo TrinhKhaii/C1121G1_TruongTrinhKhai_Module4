@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Blog</title>
+    <style th:replace="/book/layout :: style"></style>
+    <th:block th:replace="/book/layout :: linkHead"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <form method="post" th:action="@{/book/borrow}" th:object="${book}">
+                <input type="hidden" name="id" th:field="*{bookId}">
+                <div class="modal-header">
+                    <h4 class="modal-title text-primary">Thông tin sách</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Tên sách</label>
+                        <input  type="text" class="form-control" th:field="*{bookName}" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label>Tác giả</label>
+                        <input  type="text" class="form-control" th:field="*{bookAuthor}" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label>Số lượng</label>
+                        <input  type="text" class="form-control" th:field="*{bookAmount}" readonly/>
+                    </div>
+                    <div class="modal-footer">
+                        <a th:href="@{/book}" class="btn btn-dark">Huỷ</a>
+                        <input type="submit" id="brow" class="btn btn-info" value="Mượn">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="/book/layout :: footer"></footer>
+</body>
+<th:block th:replace="/book/layout :: script"/>
+</html>

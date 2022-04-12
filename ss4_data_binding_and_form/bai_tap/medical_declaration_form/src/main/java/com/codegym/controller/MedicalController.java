@@ -4,6 +4,7 @@ import com.codegym.model.MedicalDeclaration;
 import com.codegym.repository.IMedicalRepository;
 import com.codegym.service.IMedicalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
