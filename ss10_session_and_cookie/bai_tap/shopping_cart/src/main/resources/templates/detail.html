@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail product</title>
+    <style th:replace="/layout :: style"></style>
+    <th:block th:replace="/layout :: linkHead"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-6 mx-auto">
+            <form method="post" th:action="@{/product/buy}" th:object="${product}">
+                <input type="hidden" name="id" th:field="*{productId}">
+                <div class="modal-header">
+                    <h4 class="modal-title text-primary">Thông tin sản phẩm</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Sản phẩm</label>
+                        <img th:src="*{productImage}" style="width: 250px">
+                    </div>
+                    <div class="form-group">
+                        <label>Mã sản phẩm</label>
+                        <input  type="text" class="form-control" th:field="*{productCode}" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label>Tên sản phẩm</label>
+                        <input  type="text" class="form-control" th:field="*{productName}" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label>Giá</label>
+                        <input  type="text" class="form-control" th:field="*{productPrice}" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label>Khuyến mãi</label>
+                        <input  type="text" class="form-control" th:field="*{promotion}" readonly/>
+                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <label>Số lượng</label>-->
+<!--                        <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">-->
+<!--                    </div>-->
+                    <div class="modal-footer">
+                        <a th:href="@{/product}" class="btn btn-dark">Huỷ</a>
+                        <input type="submit" id="brow" class="btn btn-info" value="Add to cart">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="/layout :: footer"></footer>
+</body>
+<th:block th:replace="/layout :: script"/>
+</html>

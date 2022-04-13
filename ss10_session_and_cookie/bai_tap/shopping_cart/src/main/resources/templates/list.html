@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style th:replace="~{/layout::css_style}"></style>
+    <th:block th:replace="/layout::linkHead"/>
+
+</head>
+<!--<th:block th:if="${message}">-->
+<!--    <p th:text="${message}"></p>-->
+<!--</th:block>-->
+<body>
+<div class="container-fluid-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2><b>Product</b></h2>
+<!--                        <form th:action="@{/passbook/search}">-->
+<!--                            <input type="date" name="startDay" th:value="${start}" placeholder="Start day">-->
+<!--                            <input type="date" name="endDay" th:value="${end}" placeholder="End day">-->
+<!--                            <input type="text" name="searchName" th:value="${searchValue}" placeholder="Name">-->
+<!--                            <button>Search</button>-->
+<!--                        </form>-->
+                    </div>
+                    <div class="col-sm-6">
+                        <a th:href="@{/shopping-cart}" class="btn btn-success"><i
+                                class="material-icons">&#xE147;</i> <span>Giỏ hàng</span></a>
+                    </div>
+                </div>
+            </div>
+            <table id="example" class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Hình ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Add to cart</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="product, loop : ${products}">
+                    <td th:text="${loop.count}"></td>
+
+                    <td>
+                        <img th:src="${product.productImage}" alt="product-pic" style="width: 150px"/>
+                    </td>
+
+                    <td th:text="${product.productName}"></td>
+
+                    <td th:text="${product.productPrice}"></td>
+
+                    <td>
+                        <a style="text-decoration: none" th:href="@{/product/buy/{id}(id=${product.productId})}"
+                           class="btn btn-primary text-white">Buy</a>
+                    </td>
+<!--                    <td>-->
+<!--                        <a class="btn btn-primary text-white" href="#deleteEmployeeModal" data-toggle="modal"-->
+<!--                           onclick="sendPassbookInfo($(this))" th:data-name="${passbook.customer.customerName}" th:data-id="${passbook.passbookId}">Delete</a>-->
+<!--                    </td>-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br/>
+<!--<div>-->
+<!--    <a th:if="${blogPage.hasPrevious()}"-->
+<!--       th:href="@{/blog(page=${blogPage.number - 1}, keyword=${keyword})}" >Previous</a>-->
+<!--    <span th:text="${blogPage.number + 1}"></span> /-->
+<!--    <span th:text="${blogPage.totalPages}"></span>-->
+<!--    <a th:if="${blogPage.hasNext()}"-->
+<!--       th:href="@{/blog(page=${blogPage.number + 1}, keyword=${keyword})}">Next</a>-->
+<!--</div>-->
+
+<!-- Delete Modal HTML -->
+<!--<div id="deleteEmployeeModal" class="modal fade">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <form method="post" action="/passbook/delete">-->
+<!--                <input type="hidden" name="idDelete" id="idDelete">-->
+<!--                <div class="modal-header">-->
+<!--                    <h4 class="modal-title">Xóa blog</h4>-->
+<!--                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <p>Bạn có muốn xoá sổ tiết kiệm của khách hàng <span style="color: #F44336" id="deleteName"></span> này ?</p>-->
+<!--&lt;!&ndash;                    <p id="deleteName"></p>&ndash;&gt;-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">-->
+<!--                    <input type="submit" class="btn btn-danger" value="Delete">-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<footer th:replace="/layout :: footer"></footer>
+</body>
+<th:block th:replace="/layout :: script">
+</th:block>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script>
+    // function sendPassbookInfo(a) {
+    //     let id = a.attr('data-id');
+    //     let name = a.attr('data-name');
+    //     document.getElementById("idDelete").value = id;
+    //     document.getElementById("deleteName").innerText = name;
+    // }
+</script>
+</html>
