@@ -33,7 +33,7 @@ public class ShoppingCartController {
 
     @PostMapping(value = "/delete")
     public String deleteProductFromCart(@RequestParam("idDelete") Integer idDelete,
-                                        @SessionAttribute("cart") Cart cart) {
+                                        @SessionAttribute(value = "cart", required = false) Cart cart) {
         Product product = iProductService.findById(idDelete);
         cart.delete(product);
         return "redirect:/shopping-cart";
