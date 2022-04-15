@@ -47,4 +47,19 @@ public class PhoneRestController {
         iPhoneService.remove(id);
         return new ResponseEntity<>(phoneOptional.get(), HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping(value = "/{phoneId}")
+    public ResponseEntity<Phone> findPhoneById(@PathVariable("phoneId") Long id) {
+        Optional<Phone> phoneOptional = iPhoneService.findById(id);
+        if (!phoneOptional.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        };
+        return new ResponseEntity<>(phoneOptional.get(), HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "/update")
+    public ResponseEntity<Void> update(@RequestBody Phone phoneUpdate) {
+        iPhoneService.save(phoneUpdate);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
