@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- Font Awesome -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css"
+            rel="stylesheet"
+    />
+</head>
+<body>
+<!-- Image and text -->
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+
+        <a class="navbar-brand" href="#">
+        <img
+                src="https://scontent.fsgn2-4.fna.fbcdn.net/v/t1.6435-9/128426339_2661484080768828_7457482197686348117_n.jpg?_nc_cat=101&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=vY6RIqHL5eoAX8ILBJY&tn=keS89nuenYOta0cj&_nc_ht=scontent.fsgn2-4.fna&oh=00_AT89KEOVJuVL6gYiMcY_D_lZNrbh0EPWKUJPz-8kgsuplQ&oe=627F37AD"
+                alt=""
+                style="width: 45px; height: 45px"
+                class="rounded-circle"
+        />
+        <h5 class="m-lg-3">Trinh Khai</h5>
+        </a>
+            <div class="d-flex input-group w-auto">
+                <div class="form-outline">
+                    <input id="search-focus" type="search"  class="form-control"/>
+                    <label class="form-label" for="search-focus">Author</label>
+                </div>
+                <button type="button" class="btn btn-primary" id="btn_search">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+    </div>
+</nav>
+<table class="table table-striped table-hover">
+    <thead class="bg-light">
+    <tr>
+        <th>STT</th>
+        <th>Chủ đề</th>
+        <th>Tác giả</th>
+        <th>Nội dung</th>
+        <th>Chỉnh Sửa</th>
+        <th>Xoá</th>
+    </tr>
+    </thead>
+    <tbody id="body_list">
+
+    </tbody>
+</table>
+<button type="button" class="btn btn-outline-info" data-mdb-ripple-color="dark" id="load_more">Load more</button>
+</body>
+<!-- MDB -->
+<script
+        type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.js"
+></script>
+<!-- AJAX -->
+<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+<script src="js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    let outHTML = "";
+    let index = 1;
+    // List
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "GET",
+        url: "http://localhost:8080/api/blog/list?searchVal=",
+        success: function (resultSuccess) {
+            let blogs = resultSuccess.content;
+            console.log(blogs);
+            for (let i = 0; i < blogs.length; i++) {
+                outHTML += `
+                    <tr>
+                    <td>
+                        ${index++}
+                    </td>
+                    <td>
+                        <p class="fw-normal mb-1">${blogs[i].category.categoryName}</p>
+
+                    </td>
+                    <td>
+                        <p class="fw-normal mb-1">${blogs[i].blogAuthor}</p>
+
+                    </td>
+                    <td>
+                        <p class="fw-normal mb-1">${blogs[i].blogContent}</p>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-link btn-sm btn-rounded">
+                            Edit
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm btn-rounded">
+                            Delele
+                        </button>
+                    </td>
+                    </tr>
+                `
+            }
+            $("#body_list").html(outHTML);
+        },
+        error: function (resultError) {
+            alert("He thong dang bao tri");
+        },
+    });
+    // Search
+    $("#btn_search").click(function () {
+        let searchVal = $("#search-focus").val();
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "GET",
+            url: "http://localhost:8080/api/blog/list?searchVal=" + searchVal,
+            success: function (resultSuccess) {
+                let blogs = resultSuccess.content;
+                console.log(blogs);
+                let outHTML = "";
+                for (let i = 0; i < blogs.length; i++) {
+                    outHTML += `
+                    <tr>
+                    <td>
+                        ${i + 1}
+                    </td>
+                    <td>
+                        <p class="fw-normal mb-1">${blogs[i].category.categoryName}</p>
+
+                    </td>
+                    <td>
+                        <p class="fw-normal mb-1">${blogs[i].blogAuthor}</p>
+
+                    </td>
+                    <td>
+                        <p class="fw-normal mb-1">${blogs[i].blogContent}</p>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-link btn-sm btn-rounded">
+                            Edit
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm btn-rounded">
+                            Delele
+                        </button>
+                    </td>
+                    </tr>
+                `
+                }
+                $("#body_list").html(outHTML);
+                $("#search-focus").val("")
+            },
+            error: function (resultError) {
+                alert("He thong dang bao tri");
+            },
+        });
+    })
+    // Load more
+    let count = 1;
+    $("#load_more").click(function () {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "GET",
+            url: "http://localhost:8080/api/blog/list?searchVal=&page=" + (count++),
+            success: function (resultSuccess) {
+                let blogs = resultSuccess.content;
+                for (let i = 0; i < blogs.length; i++) {
+                    outHTML += `
+                    <tr>
+                    <td>
+                        ${index++}
+                    </td>
+                    <td>
+                        <p class="fw-normal mb-1">${blogs[i].category.categoryName}</p>
+                    </td>
+                    <td>
+                        <p class="fw-normal mb-1">${blogs[i].blogAuthor}</p>
+
+                    </td>
+                    <td>
+                        <p class="fw-normal mb-1">${blogs[i].blogContent}</p>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-link btn-sm btn-rounded">
+                            Edit
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm btn-rounded">
+                            Delele
+                        </button>
+                    </td>
+                    </tr>
+                `
+                }
+                $("#body_list").html(outHTML);
+            }
+        })
+    })
+</script>
+</html>
