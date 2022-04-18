@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Customer</title>
+    <!-- Font Awesome -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css"
+            rel="stylesheet"
+    />
+</head>
+<body>
+<div id="header"></div>
+<!-- List -->
+<table class="table table-striped table-hover">
+    <thead class="bg-light">
+    <tr>
+        <th>STT</th>
+        <th>Mã khách hàng</th>
+        <th>Tên</th>
+        <th>Giới tính</th>
+        <th>Ngày sinh</th>
+        <th>CMND</th>
+        <th>Số điện thoại</th>
+        <th>Email</th>
+        <th>Địa chỉ</th>
+        <th>Loại</th>
+        <th>Chỉnh Sửa</th>
+        <th>Xoá</th>
+    </tr>
+    </thead>
+    <tbody id="body_list">
+
+    </tbody>
+</table>
+</body>
+
+<!-- Add modal -->
+<div class="modal fade" id="addModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm mới</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-outline mb-5">
+                    <input type="text" id="customerCode" class="form-control"/>
+                    <label class="form-label" for="customerCode">Mã khách hàng<span class="text-danger">(*)</span></label>
+                    <p  class="form-helper text-danger" id="customerCodeError"></p>
+                </div>
+                <div class="form-outline mb-5">
+                    <input type="text" id="customerName" class="form-control"/>
+                    <label class="form-label" for="customerName">Họ Tên<span class="text-danger">(*)</span></label>
+                    <p  class="form-helper text-danger" id="customerNameError"></p>
+                </div>
+
+                <label class="form-label" for="gender">Giới tính</label>
+                <select class="browser-default custom-select form-control mb-4" id="gender">
+                </select>
+                <p  class="form-helper text-danger" id="genderError"></p>
+
+                <div class="form-outline mb-5">
+                    <input type="date" id="dayOfBirth" class="form-control"/>
+                    <label class="form-label" for="dayOfBirth">Ngày sinh<span class="text-danger">(*)</span></label>
+                    <p  class="form-helper text-danger" id="dayOfBirthError"></p>
+                </div>
+
+                <div class="form-outline mb-5">
+                    <input type="text" id="idCard" class="form-control"/>
+                    <label class="form-label" for="idCard">Số CMND<span class="text-danger">(*)</span></label>
+                    <p  class="form-helper text-danger" id="idCardError"></p>
+                </div>
+                <div class="form-outline mb-5">
+                    <input type="text" id="phoneNumber" class="form-control"/>
+                    <label class="form-label" for="phoneNumber">Số điện thoại<span class="text-danger">(*)</span></label>
+                    <p  class="form-helper text-danger" id="phoneNumberError"></p>
+                </div>
+                <div class="form-outline mb-5">
+                    <input type="text" id="email" class="form-control"/>
+                    <label class="form-label" for="email">Email</label>
+                    <p  class="form-helper text-danger" id="emailError"></p>
+                </div>
+                <div class="form-outline mb-5">
+                    <input type="text" id="address" class="form-control"/>
+                    <label class="form-label" for="address">Địa chỉ</label>
+                    <p  class="form-helper text-danger" id="addressError"></p>
+                </div>
+
+                <label class="form-label" for="customerType">Loại</label>
+                <select class="browser-default custom-select form-control mb-4" id="customerType">
+                </select>
+                <p  class="form-helper text-danger" id="customerTypeError"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="add_btn">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit modal -->
+<div class="modal fade" id="editModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chỉnh sửa</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-outline mb-5">
+                    <input type="text" id="customerCodeEdit" class="form-control" readonly/>
+                    <label class="form-label" for="customerCodeEdit">Mã khách hàng<span class="text-danger">(*)</span></label>
+                    <p  class="form-helper text-danger" id="customerCodeEditError"></p>
+                </div>
+                <div class="form-outline mb-5">
+                    <input type="text" id="customerNameEdit" class="form-control"/>
+                    <label class="form-label" for="customerNameEdit">Họ Tên<span class="text-danger">(*)</span></label>
+                    <p  class="form-helper text-danger" id="customerNameEditError"></p>
+                </div>
+
+                <label class="form-label" for="genderEdit">Giới tính</label>
+                <select class="browser-default custom-select form-control mb-4" id="genderEdit">
+                </select>
+                <p  class="form-helper text-danger" id="genderEditError"></p>
+
+                <div class="form-outline mb-5">
+                    <input type="date" id="dayOfBirthEdit" class="form-control"/>
+                    <label class="form-label" for="dayOfBirthEdit">Ngày sinh<span class="text-danger">(*)</span></label>
+                    <p  class="form-helper text-danger" id="dayOfBirthEditError"></p>
+                </div>
+
+                <div class="form-outline mb-5">
+                    <input type="text" id="idCardEdit" class="form-control"/>
+                    <label class="form-label" for="idCardEdit">Số CMND<span class="text-danger">(*)</span></label>
+                    <p  class="form-helper text-danger" id="idCardEditError"></p>
+                </div>
+                <div class="form-outline mb-5">
+                    <input type="text" id="phoneNumberEdit" class="form-control"/>
+                    <label class="form-label" for="phoneNumberEdit">Số điện thoại<span class="text-danger">(*)</span></label>
+                    <p  class="form-helper text-danger" id="phoneNumberEditError"></p>
+                </div>
+                <div class="form-outline mb-5">
+                    <input type="text" id="emailEdit" class="form-control"/>
+                    <label class="form-label" for="emailEdit">Email</label>
+                    <p  class="form-helper text-danger" id="emailEditError"></p>
+                </div>
+                <div class="form-outline mb-5">
+                    <input type="text" id="addressEdit" class="form-control"/>
+                    <label class="form-label" for="addressEdit">Địa chỉ</label>
+                    <p  class="form-helper text-danger" id="addressEditError"></p>
+                </div>
+
+                <label class="form-label" for="customerTypeEdit">Loại</label>
+                <select class="browser-default custom-select form-control mb-4" id="customerTypeEdit">
+                </select>
+                <p  class="form-helper text-danger" id="customerTypeEditError"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" id="edit_btn">Cập nhật</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xác nhận xóa</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn chắc chắn muốn xóa khách hàng <span class="text-danger" id="customer_name_delete"></span> ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">No</button>
+                <button type="button" class="btn btn-danger" id="delete_btn">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MDB -->
+<script
+        type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.js"
+></script>
+<!-- AJAX -->
+<script src="js/jquery-3.6.0.min.js"></script>
+<script>
+    let index = 1; // Số thứ tự khách hàng
+    let customerIdEdit; // Lấy id để edit
+    let customerIdDelete; // Lấy id để xóa
+
+    $(function(){
+        $("#header").load("header.html");
+        // $("#footer").load("footer.html");
+    });
+
+    // Get customer type list
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "GET",
+        url: "http://localhost:8080/customer/customer_type_list",
+        success: function (customerTypeList) {
+            let customerTypeContent = ``;
+            for (let customerTypeObj of customerTypeList) {
+                customerTypeContent += `
+                        <option value="${customerTypeObj.customerTypeId}">
+                            ${customerTypeObj.customerTypeName}
+                        </option>
+                        `;
+            }
+            $("#customerType").html(customerTypeContent);
+            $("#customerTypeEdit").html(customerTypeContent);
+        }
+    });
+
+    // Get gender list
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "GET",
+        url: "http://localhost:8080/customer/gender_list",
+        success: function (genderList) {
+            let genderContent = ``;
+            for (let i = 0; i < genderList.length; i++) {
+                genderContent += `
+                        <option value="${genderList[i]}">
+                            ${genderList[i]}
+                        </option>
+                        `;
+            }
+            $("#gender").html(genderContent);
+            $("#genderEdit").html(genderContent);
+        }
+    });
+
+    // Get customer list
+    function getCustomerList(customer) {
+        return `
+            <tr>
+                <td>
+                    ${index++}
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">${customer.customerCode}</p>
+
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">${customer.name}</p>
+
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">${customer.gender}</p>
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">${customer.dayOfBirth}</p>
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">${customer.idCard}</p>
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">${customer.phoneNumber}</p>
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">${customer.email}</p>
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">${customer.address}</p>
+                </td>
+                <td>
+                    <p class="fw-normal mb-1">${customer.customerType.customerTypeName}</p>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-link btn-sm btn-rounded edit_btn" data-mdb-toggle="modal" data-mdb-target="#editModal" data-id="${customer.customerId}">
+                        Edit
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm btn-rounded delete_btn" data-mdb-toggle="modal" data-mdb-target="#deleteModal" data-id="${customer.customerId}" data-name="${customer.name}">
+                        Delele
+                    </button>
+                </td>
+            </tr>
+        `
+    }
+
+    // Get customer list
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "GET",
+        url: "http://localhost:8080/customer/customer_list?searchVal=",
+        success: function (resultSuccess) {
+            let customers = resultSuccess.content;
+            let content;
+            for (let i = 0; i < customers.length; i++) {
+                if (customers[i].deleteFlag === false) {
+                    content += getCustomerList(customers[i]);
+                }
+            }
+            $("#body_list").html(content);
+        },
+        error: function (resultError) {
+            alert("Hệ thống đang bảo trì");
+        },
+    });
+
+    // Reset value of field error
+    function setDefaultError() {
+        $("#customerCodeError").text("");
+        $("#customerNameError").text("");
+        $("#genderError").text("");
+        $("#dayOfBirthError").text("");
+        $("#idCardError").text("");
+        $("#phoneNumberError").text("");
+        $("#emailError").text("");
+        $("#addressError").text("");
+        $("#customerTypeError").text("");
+    }
+
+    // Reset value of field error edit
+    function setDefaultEditError() {
+        $("#customerCodeEditError").text("");
+        $("#customerNameEditError").text("");
+        $("#genderEditError").text("");
+        $("#dayOfBirthEditError").text("");
+        $("#idCardEditError").text("");
+        $("#phoneNumberEditError").text("");
+        $("#emailEditError").text("");
+        $("#addressEditError").text("");
+        $("#customerTypeEditError").text("");
+    }
+
+    // Show add new modal and save
+    $("#add_btn").click(function (event) {
+        let customerCode = $("#customerCode").val();
+        let customerName = $("#customerName").val();
+        let gender = $("#gender").val();
+        let dayOfBirth = $("#dayOfBirth").val();
+        let idCard = $("#idCard").val();
+        let phoneNumber = $("#phoneNumber").val();
+        let email = $("#email").val();
+        let address = $("#address").val();
+        let customerType = $("#customerType").val();
+        let customerDTO = {
+            customerCode: customerCode,
+            name: customerName,
+            dayOfBirth: dayOfBirth,
+            idCard: idCard,
+            phoneNumber: phoneNumber,
+            email: email,
+            address: address,
+            customerType: {
+                customerTypeId: customerType,
+            },
+            gender: gender
+        }
+        console.log(customerDTO)
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            url: "http://localhost:8080/customer/save",
+            data: JSON.stringify(customerDTO),
+            success: function (resultSuccess) {
+                setDefaultError();
+                let errors = new Map(Object.entries(resultSuccess));
+                if (errors.size !== 0) {
+                    for (let [key, value] of errors.entries()) {
+                        if (key === "customerCode") {
+                            $("#customerCodeError").text(value);
+                        } else if (key === "name") {
+                            $("#customerNameError").text(value);
+                        } else if (key === "gender") {
+                            $("#genderError").text(value);
+                        } else if (key === "dayOfBirth") {
+                            $("#dayOfBirthError").text(value);
+                        } else if (key === "idCard") {
+                            $("#idCardError").text(value);
+                        } else if (key === "phoneNumber") {
+                            $("#phoneNumberError").text(value);
+                        } else if (key === "email") {
+                            $("#emailError").text(value);
+                        } else if (key === "address") {
+                            $("#addressError").text(value);
+                        } else if (key === "customerType") {
+                            $("#customerTypeError").text(value);
+                        }
+                    }
+                } else {
+                    location.reload();
+                }
+            },
+            error: function (resultError) {
+                alert("Hệ thống đang bảo trì");
+            },
+        });
+        event.preventDefault();
+    });
+
+    // Show edit modal
+    $(document).on("click", ".edit_btn", function (event) {
+       let a = $(this);
+       customerIdEdit = a.attr("data-id");
+       $.ajax({
+           headers: {
+               'Accept': 'application/json',
+               'Content-Type': 'application/json'
+           },
+           type: "GET",
+           url: "http://localhost:8080/customer/" + customerIdEdit,
+           success: function (resultSuccess) {
+               $("#customerCodeEdit").val(resultSuccess.customerCode);
+               $("#customerNameEdit").val(resultSuccess.name);
+               $("#genderEdit").val(resultSuccess.gender);
+               $("#dayOfBirthEdit").val(resultSuccess.dayOfBirth);
+               $("#idCardEdit").val(resultSuccess.idCard);
+               $("#phoneNumberEdit").val(resultSuccess.phoneNumber);
+               $("#emailEdit").val(resultSuccess.email);
+               $("#addressEdit").val(resultSuccess.address);
+               $("#customerTypeEdit").val(resultSuccess.customerType.customerTypeId);
+           },
+           error: function (resultError) {
+               alert("Hệ thống đang bảo trì");
+           },
+       });
+       event.preventDefault();
+    });
+
+    // Update after edit
+    $("#edit_btn").click(function () {
+        let customerCode = $("#customerCodeEdit").val();
+        let customerName = $("#customerNameEdit").val();
+        let gender = $("#genderEdit").val();
+        let dayOfBirth = $("#dayOfBirthEdit").val();
+        let idCard = $("#idCardEdit").val();
+        let phoneNumber = $("#phoneNumberEdit").val();
+        let email = $("#emailEdit").val();
+        let address = $("#addressEdit").val();
+        let customerType = $("#customerTypeEdit").val();
+        let customerDTO = {
+            customerCode: customerCode,
+            name: customerName,
+            dayOfBirth: dayOfBirth,
+            idCard: idCard,
+            phoneNumber: phoneNumber,
+            email: email,
+            address: address,
+            customerType: {
+                customerTypeId: customerType,
+            },
+            gender: gender
+        };
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "PATCH",
+            url: "http://localhost:8080/customer/" + customerIdEdit,
+            data: JSON.stringify(customerDTO),
+            success: function (resultSuccess) {
+                setDefaultEditError();
+                let errors = new Map(Object.entries(resultSuccess));
+                if (errors.size !== 0) {
+                    for (let [key, value] of errors.entries()) {
+                        if (key === "customerCode") {
+                            $("#customerCodeEditError").text(value);
+                        } else if (key === "name") {
+                            $("#customerNameEditError").text(value);
+                        } else if (key === "gender") {
+                            $("#genderEditError").text(value);
+                        } else if (key === "dayOfBirth") {
+                            $("#dayOfBirthEditError").text(value);
+                        } else if (key === "idCard") {
+                            $("#idCardEditError").text(value);
+                        } else if (key === "phoneNumber") {
+                            $("#phoneNumberEditError").text(value);
+                        } else if (key === "email") {
+                            $("#emailEditError").text(value);
+                        } else if (key === "address") {
+                            $("#addressEditError").text(value);
+                        } else if (key === "customerType") {
+                            $("#customerTypeEditError").text(value);
+                        }
+                    }
+                } else {
+                    location.reload();
+                }
+            }
+        });
+    });
+
+    // Show delete modal
+    $(document).on("click", ".delete_btn", function () {
+        let a = $(this);
+        customerIdDelete = a.attr("data-id");
+        let customerNameDelete = a.attr("data-name");
+        $("#customer_name_delete").text(customerNameDelete);
+    });
+
+    // Delete customer (set deleteFlag = true)
+    $("#delete_btn").click(function () {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "PATCH",
+            url: "http://localhost:8080/customer/delete/" + customerIdDelete,
+            success: function () {
+                location.reload();
+            }
+        });
+    });
+</script>
+</html>

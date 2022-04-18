@@ -11,7 +11,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 /*
@@ -40,6 +44,9 @@ public class BlogRestController {
 
     @PostMapping(value = "/save")
     public ResponseEntity<Void> saveBlog(@RequestBody Blog blog) {
+        Date utilDate = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+        blog.setCreateDate(dateFormat.format(utilDate.getTime()));
         iBlogService.save(blog);
         return new ResponseEntity<>(HttpStatus.OK);
     }
