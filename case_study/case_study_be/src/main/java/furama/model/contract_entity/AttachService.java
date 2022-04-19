@@ -1,5 +1,6 @@
 package furama.model.contract_entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;

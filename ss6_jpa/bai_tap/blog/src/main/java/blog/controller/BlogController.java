@@ -1,14 +1,18 @@
 package blog.controller;
 
 import blog.model.Blog;
-import blog.repository.IBlogRepository;
 import blog.service.IBlogService;
+import blog.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+
+import java.security.Principal;
 import java.util.List;
 
 /*
@@ -30,11 +34,27 @@ public class BlogController {
         return modelAndView;
     }
 
+    @GetMapping(value = "/login")
+    public String loginPage() {
+
+        return "loginPage";
+    }
+
     @GetMapping(value = "/create")
-    public ModelAndView showCreateForm() {
+    public ModelAndView showCreateForm(Principal principal) {
         ModelAndView modelAndView = new ModelAndView("create");
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+
+        String userInfo = WebUtils.toString(loginedUser);
+        modelAndView.addObject("userInfo", userInfo);
         modelAndView.addObject("blog", new Blog());
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
+    public String logoutSuccessfulPage(Model model) {
+        model.addAttribute("title", "Logout");
+        return "redirect:/blog";
     }
 
     @PostMapping(value = "/save")

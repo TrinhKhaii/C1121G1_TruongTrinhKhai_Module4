@@ -1,5 +1,7 @@
 package furama.model.employee_entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Set;
 

@@ -23,6 +23,7 @@
                     <div class="col-sm-6">
                         <a th:href="@{/blog/create}" class="btn btn-success"><i
                                 class="material-icons">&#xE147;</i> <span>Thêm mới blog</span></a>
+                        <a th:if="${#request.userPrincipal != null}" th:href="@{/logout}">Logout</a>
                     </div>
                 </div>
             </div>
