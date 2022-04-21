@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Furama</title>
+    <th:block th:fragment="linkHead">
+        <!-- Font Awesome -->
+        <link
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+                rel="stylesheet"
+        />
+        <!-- MDB -->
+        <link
+                href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css"
+                rel="stylesheet"
+        />
+    </th:block>
+</head>
+<body>
+<!--<div id="header"></div>-->
+<!-- Navbar -->
+<nav th:fragment="header" class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Container wrapper -->
+    <div class="container">
+        <!-- Navbar brand -->
+        <a class="navbar-brand me-2" href="https://mdbgo.com/">
+            <img
+                    src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+                    height="16"
+                    alt="Logo"
+                    loading="lazy"
+                    style="margin-top: -1px;"
+            />
+        </a>
+
+        <!-- Toggle button -->
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarButtonsExample"
+                aria-controls="navbarButtonsExample"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarButtonsExample">
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">FURAMA</a>
+                </li>
+            </ul>
+            <!-- Left links -->
+            <div class="d-flex align-items-center">
+                <button type="button" class="btn btn-link px-3 me-2">
+                    Login
+                </button>
+            </div>
+        </div>
+        <!-- Collapsible wrapper -->
+    </div>
+    <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
+<nav th:fragment="nav_bar" class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+        <!-- Toggle button -->
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#navbarLeftAlignExample"
+                aria-controls="navbarLeftAlignExample"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/customer}">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Về chúng tôi</a>
+                </li>
+                <!-- Navbar dropdown -->
+                <li class="nav-item dropdown">
+                    <a
+                            class="nav-link dropdown-toggle"
+                            href="#"
+                            id="navbarDropdown"
+                            role="button"
+                            data-mdb-toggle="dropdown"
+                            aria-expanded="false"
+                    >
+                        Quản lý
+                    </a>
+                    <!-- Dropdown menu -->
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li>
+                            <a class="dropdown-item" th:href="@{/customer}">Khách hàng</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Nhân viên</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/service}">Dịch vụ</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#">Hợp đồng</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Left links -->
+        </div>
+    </div>
+    <!-- Container wrapper -->
+</nav>
+</body>
+<th:block th:fragment="linkScript">
+    <!-- MDB -->
+    <script
+            type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.js"
+    ></script>
+    <!-- AJAX -->
+    <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+    <script src="/js/jquery-3.6.0.min.js"></script>
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+</th:block>
+
+</html>

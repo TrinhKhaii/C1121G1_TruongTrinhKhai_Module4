@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Customer</title>
+    <th:block th:replace="~{/menu::linkHead}"/>
+</head>
+<body>
+<div id="header"></div>
+<nav th:replace="~{/menu::header}"></nav>
+<nav th:replace="~{/menu::nav_bar}"></nav>
+
+<div class=" col-4 mx-auto">
+    <form method="post" th:action="@{/customer/update}" th:object="${customerDTO}">
+        <div class="modal-header">
+            <h5 class="modal-title">Chỉnh sửa khách hàng</h5>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" name="id" th:field="*{customerId}">
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="customerCode" class="form-control" th:field="*{customerCode}"/>
+                    <label class="form-label" for="customerCode">Mã khách hàng<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('customerCode')}" th:errors="*{customerCode}"></small>
+            </div>
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="customerName" class="form-control" th:field="*{name}"/>
+                    <label class="form-label" for="customerName">Họ Tên<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+            </div>
+
+            <label class="form-label" for="gender">Giới tính</label>
+            <select th:field="*{gender}" id="gender" class="form-control mb-4">
+                <option th:each="item: ${genders}" th:value="${item}" th:text="${item}"></option>
+            </select>
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="date" id="dayOfBirth" class="form-control" th:field="*{dayOfBirth}"/>
+                    <label class="form-label" for="dayOfBirth">Ngày sinh<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('dayOfBirth')}" th:errors="*{dayOfBirth}"></small>
+
+            </div>
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="idCard" class="form-control"  th:field="*{idCard}"/>
+                    <label class="form-label" for="idCard">Số CMND<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}"></small>
+            </div>
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="phoneNumber" class="form-control"  th:field="*{phoneNumber}"/>
+                    <label class="form-label" for="phoneNumber">Số điện thoại<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></small>
+            </div>
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="email" class="form-control"  th:field="*{email}"/>
+                    <label class="form-label" for="email">Email</label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+            </div>
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="address" class="form-control"  th:field="*{address}"/>
+                    <label class="form-label" for="address">Địa chỉ</label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></small>
+            </div>
+
+            <label class="form-label" for="customerType">Loại</label>
+            <select th:field="*{customerType}" id="customerType" class="form-control mb-4">
+                <option th:each="item: ${customerTypes}" th:value="${item.customerTypeId}" th:text="${item.customerTypeName}"></option>
+            </select>
+
+        </div>
+        <div class="modal-footer">
+<!--            <a th:href="@{/customer}" type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Đóng</a>-->
+            <input type="submit" class="btn btn-primary" value="Cập nhật"/>
+        </div>
+    </form>
+</div>
+</body>
+
+<th:block th:replace="/menu::linkScript"/>
+</html>

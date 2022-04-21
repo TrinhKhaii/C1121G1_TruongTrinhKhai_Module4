@@ -13,7 +13,6 @@ import java.util.Set;
     Time: 09:33
 */
 @Entity
-@Data
 public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +24,7 @@ public class Service {
     @NotNull
     private String serviceName;
 
-    private Integer service_area;
+    private Integer serviceArea;
     @NotNull
     private Double serviceCost;
     private Integer serviceMaxPeople;
@@ -33,6 +32,8 @@ public class Service {
     private String descritionOtherConvenience;
     private Double poolArea;
     private Integer numberOdFloors;
+    private String freeServiceInclude;
+    private Boolean deleteFlag;
 
     @NotNull
     @ManyToOne
@@ -46,4 +47,128 @@ public class Service {
 
     @OneToMany(mappedBy = "service")
     private Set<Contract> contracts;
+
+    public Service() {
+        setDeleteFlag(false);
+    }
+
+    public Integer getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(Integer serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public String getServiceCode() {
+        return serviceCode;
+    }
+
+    public void setServiceCode(String serviceCode) {
+        this.serviceCode = serviceCode;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    public Integer getServiceArea() {
+        return serviceArea;
+    }
+
+    public void setServiceArea(Integer serviceArea) {
+        this.serviceArea = serviceArea;
+    }
+
+    public Double getServiceCost() {
+        return serviceCost;
+    }
+
+    public void setServiceCost(Double serviceCost) {
+        this.serviceCost = serviceCost;
+    }
+
+    public Integer getServiceMaxPeople() {
+        return serviceMaxPeople;
+    }
+
+    public void setServiceMaxPeople(Integer serviceMaxPeople) {
+        this.serviceMaxPeople = serviceMaxPeople;
+    }
+
+    public String getStandardRoom() {
+        return standardRoom;
+    }
+
+    public void setStandardRoom(String standardRoom) {
+        this.standardRoom = standardRoom;
+    }
+
+    public String getDescritionOtherConvenience() {
+        return descritionOtherConvenience;
+    }
+
+    public void setDescritionOtherConvenience(String descritionOtherConvenience) {
+        this.descritionOtherConvenience = descritionOtherConvenience;
+    }
+
+    public Double getPoolArea() {
+        return poolArea;
+    }
+
+    public void setPoolArea(Double poolArea) {
+        this.poolArea = poolArea;
+    }
+
+    public Integer getNumberOdFloors() {
+        return numberOdFloors;
+    }
+
+    public void setNumberOdFloors(Integer numberOdFloors) {
+        this.numberOdFloors = numberOdFloors;
+    }
+
+    public String getFreeServiceInclude() {
+        return freeServiceInclude;
+    }
+
+    public void setFreeServiceInclude(String freeServiceInclude) {
+        this.freeServiceInclude = freeServiceInclude;
+    }
+
+    public Boolean getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Boolean deleteFlag) {
+        this.deleteFlag = deleteFlag;
+    }
+
+    public RentType getRentType() {
+        return rentType;
+    }
+
+    public void setRentType(RentType rentType) {
+        this.rentType = rentType;
+    }
+
+    public ServiceType getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(ServiceType serviceType) {
+        this.serviceType = serviceType;
+    }
+
+    public Set<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(Set<Contract> contracts) {
+        this.contracts = contracts;
+    }
 }

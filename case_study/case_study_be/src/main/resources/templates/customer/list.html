@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Customer</title>
+    <th:block th:replace="~{/menu::linkHead}"/>
+</head>
+<body>
+<div id="header"></div>
+<nav th:replace="~{/menu::header}"></nav>
+<nav th:replace="~{/menu::nav_bar}"></nav>
+<header>
+    <!-- Navbar -->
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+            <!-- Search form -->
+            <form th:action="@{/customer/search}">
+                <input type="text" name="searchValue" th:value="${searchValue}" placeholder="Name"/>
+                <button class=" border-0" id="search-addon">Search</button>
+            </form>
+            <!-- Right links -->
+            <div class="navbar-nav ms-auto d-flex flex-row">
+                <a type="button" th:href="@{/customer/create}" class="btn btn-primary me-3">
+                    THÊM MỚI
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
+<!-- List -->
+<table class="table table-striped table-hover">
+    <thead class="bg-light">
+    <tr>
+        <th>STT</th>
+        <th>Mã khách hàng</th>
+        <th>Tên</th>
+        <th>Giới tính</th>
+        <th>Ngày sinh</th>
+        <th>CMND</th>
+        <th>Số điện thoại</th>
+        <th>Email</th>
+        <th>Địa chỉ</th>
+        <th>Loại</th>
+        <th>Chỉnh Sửa</th>
+        <th>Xoá</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="customer, loop: ${customers}">
+        <div th:if="${customer.deleteFlag == false}">
+            <td th:text="${loop.count}"></td>
+            <td th:text="${customer.customerCode}"></td>
+            <td th:text="${customer.name}"></td>
+            <td th:text="${customer.gender}"></td>
+            <td th:text="${customer.dayOfBirth}"></td>
+            <td th:text="${customer.idCard}"></td>
+            <td th:text="${customer.phoneNumber}"></td>
+            <td th:text="${customer.email}"></td>
+            <td th:text="${customer.address}"></td>
+            <td th:text="${customer.customerType.customerTypeName}"></td>
+            <td>
+                <a type="button" class="btn btn-link btn-sm btn-rounded edit_btn" th:href="@{/customer/edit/{id}(id=${customer.customerId})}">
+                    Sửa
+                </a>
+            </td>
+            <td>
+                <a type="button" class="btn btn-danger btn-sm btn-rounded delete_btn" data-mdb-toggle="modal"
+                   data-mdb-target="#deleteModal" th:data-id="${customer.customerId}" th:data-name="${customer.name}"
+                    onclick="sendCustomerInfo($(this))">
+                    Xóa
+                </a>
+            </td>
+        </div>
+    </tr>
+    </tbody>
+</table>
+
+<div class="col-12" style="display: flex; justify-content: flex-end; padding-right: 20px">
+    <a th:href="@{/customer(page=${customers.number - 1}, search=${searchValue})}" th:if="${customers.hasPrevious()}">Previous</a>
+    <span th:text="${customers.number + 1}"></span>/<span th:text="${customers.totalPages}"></span>
+    <a th:href="@{/customer(page=${customers.number + 1}, search=${searchValue})}" th:if="${customers.hasNext()}">Next</a>
+</div>
+
+</body>
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" th:action="@{/customer/delete}">
+                <input type="hidden" name="idDelete" id="idDelete">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận xóa</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn chắc chắn muốn xóa khách hàng <span class="text-danger" id="deleteName"></span> ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" >Hủy</button>
+                    <input type="submit" class="btn btn-danger" id="delete_btn" value="Đồng ý"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="/menu::linkScript"/>
+<script>
+    // Show delete modal
+    function sendCustomerInfo(a) {
+        let id = a.attr('data-id');
+        let name = a.attr('data-name');
+        document.getElementById("idDelete").value = id;
+        document.getElementById("deleteName").innerText = name;
+    }
+</script>
+</html>

@@ -67,17 +67,4 @@ public class Customer extends Person {
         this.customerType = customerType;
     }
 
-//    <th>STT</th>
-//    <th>Mã khách hàng</th>
-//        <th>Tên</th>
-//    <th>Giới tính</th>
-//    <th>Ngày sinh</th>
-//        <th>CMND</th>
-//    <th>Số điện thoại</th>
-//        <th>Email</th>
-//    <th>Địa chỉ</th>
-//        <th>Loại</th>
-//    <th>Chỉnh Sửa</th>
-//        <th>Xoá</th>
-
 }

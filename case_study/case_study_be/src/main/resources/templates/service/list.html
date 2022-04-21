@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Service</title>
+    <th:block th:replace="~{/menu::linkHead}"/>
+</head>
+<body>
+<div id="header"></div>
+<nav th:replace="~{/menu::header}"></nav>
+<nav th:replace="~{/menu::nav_bar}"></nav>
+<header>
+    <!-- Navbar -->
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+            <!-- Search form -->
+            <form th:action="@{/service}">
+                <input type="text" name="searchValue" th:value="${searchValue}" placeholder="Name"/>
+                <button class=" border-0" id="search-addon">Search</button>
+            </form>
+            <!-- Right links -->
+            <div class="navbar-nav ms-auto d-flex flex-row">
+                <a type="button"  class="btn btn-primary me-3" data-mdb-toggle="modal" data-mdb-target="#add_modal">
+                    THÊM MỚI
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
+<!-- List -->
+<table class="table table-striped table-hover">
+    <thead class="bg-light">
+    <tr>
+        <th>STT</th>
+        <th>Mã dịch vụ</th>
+        <th>Tên dịch vụ</th>
+        <th>Diện tích sử dụng</th>
+        <th>Chi phí thuê</th>
+        <th>Số lượng người tối đa</th>
+        <th>Tiêu chuẩn phòng</th>
+        <th>Mô tả tiện nghi khác</th>
+        <th>Diện tích hồ bơi</th>
+        <th>Số tầng</th>
+        <th>Dịch vụ miễn phí đi kèm</th>
+        <th>Chỉnh Sửa</th>
+        <th>Xoá</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="service, loop: ${services}">
+        <div th:if="${service.deleteFlag == false}">
+            <td th:text="${loop.count}"></td>
+            <td th:text="${service.serviceCode}"></td>
+            <td th:text="${service.serviceName}"></td>
+            <td th:text="${service.serviceArea}"></td>
+            <td th:text="${service.serviceCost}"></td>
+            <td th:text="${service.serviceMaxPeople}"></td>
+            <td th:text="${service.standardRoom}"></td>
+            <td th:text="${service.descritionOtherConvenience}"></td>
+            <td th:text="${service.poolArea}"></td>
+            <td th:text="${service.numberOdFloors}"></td>
+            <td th:text="${service.freeServiceInclude}"></td>
+            <td>
+                <a type="button" class="btn btn-link btn-sm btn-rounded edit_btn" th:href="@{/service/edit/{id}(id=${service.serviceId})}">
+                    Sửa
+                </a>
+            </td>
+            <td>
+                <a type="button" class="btn btn-danger btn-sm btn-rounded delete_btn" data-mdb-toggle="modal"
+                   data-mdb-target="#deleteModal" th:data-id="${service.serviceId}" th:data-name="${service.serviceName}"
+                   onclick="sendCustomerInfo($(this))">
+                    Xóa
+                </a>
+            </td>
+        </div>
+    </tr>
+    </tbody>
+</table>
+
+<div class="col-12" style="display: flex; justify-content: flex-end; padding-right: 20px">
+    <a th:href="@{/service(page=${services.number - 1}, search=${searchValue})}" th:if="${services.hasPrevious()}">Previous</a>
+    <span th:text="${services.number + 1}"></span>/<span th:text="${services.totalPages}"></span>
+    <a th:href="@{/service(page=${services.number + 1}, search=${searchValue})}" th:if="${services.hasNext()}">Next</a>
+</div>
+
+</body>
+<!--Add modal-->
+<div class="modal fade" id="add_modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="get" th:action="@{/service/create}">
+                <div class="modal-header">
+                    <h5 class="modal-title">Loại dịch vụ</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="btn-group" >
+                        <input type="radio" class="btn-check" value="1" name="options" id="option1" autocomplete="off" checked />
+                        <label class="btn btn-secondary" for="option1">Villa</label>
+
+                        <input type="radio" class="btn-check" value="2" name="options" id="option2" autocomplete="off" />
+                        <label class="btn btn-secondary" for="option2">House</label>
+
+                        <input type="radio" class="btn-check" value="3" name="options" id="option3" autocomplete="off" />
+                        <label class="btn btn-secondary" for="option3">Room</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" >Hủy</button>
+                    <input type="submit" class="btn btn-danger" value="Đồng ý"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" th:action="@{/service/delete}">
+                <input type="hidden" name="idDelete" id="idDelete">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận xóa</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn chắc chắn muốn xóa dịch vụ <span class="text-danger" id="deleteName"></span> ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" >Hủy</button>
+                    <input type="submit" class="btn btn-danger" id="delete_btn" value="Đồng ý"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="/menu::linkScript"/>
+<script>
+    // Show delete modal
+    function sendCustomerInfo(a) {
+        let id = a.attr('data-id');
+        let name = a.attr('data-name');
+        document.getElementById("idDelete").value = id;
+        document.getElementById("deleteName").innerText = name;
+    }
+</script>
+</html>

@@ -9,23 +9,22 @@ import furama.dto.PersonDTO;
 import furama.model.customer_entity.CustomerType;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 
 public class CustomerDTO extends PersonDTO {
     private Integer customerId;
 
-    @NotBlank(message = "Customer code can not empty")
-    @Pattern(regexp = "(^$|KH-\\d{4})", message = "Customer code must be in KH-XXXX format, where X is integer number.")
+    @NotBlank(message = "Mã khách hàng không được để trống")
+    @Pattern(regexp = "(^$|KH-\\d{4})", message = "Mã khách hàng phải có định dạng KH-XXXX, trong đó X là số tự nhiên.")
     private String customerCode;
 
-    @NotBlank(message = "Gender can not be empty")
+    @NotBlank(message = "Giới tính không được để trống")
     private String gender;
 
-//    @NotEmpty(message = "Customer type can not be empty")
     private CustomerType customerType;
 
     public CustomerDTO() {
+        setDeleteFlag(false);
     }
 
     public Integer getCustomerId() {

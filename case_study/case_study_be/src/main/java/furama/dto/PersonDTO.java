@@ -10,25 +10,23 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 public abstract class PersonDTO {
-    @NotBlank(message = "Name can not empty.")
+    @NotBlank(message = "Tên không được để trống.")
     private String name;
 
-    @NotBlank(message = "Day of birth can not empty.")
+    @NotBlank(message = "Ngày sinh không được để trống.")
     private String dayOfBirth;
 
-    @NotBlank(message = "Id card can not empty.")
-    @Pattern(regexp = "(^$|\\d{9}|\\d{12})", message = "Id card must be in XXXXXXXXX or XXXXXXXXXXXX format, where X is integer number.")
+    @NotBlank(message = "CMND không được để trống.")
+    @Pattern(regexp = "(^$|\\d{9}|\\d{12})", message = "CMND phải có định dạng XXXXXXXXX hoặc XXXXXXXXXXXXXXXX, trong đó X là số tự nhiên.")
     private String idCard;
 
-    @NotBlank(message = "Phone number can not empty.")
-    @Pattern(regexp = "(^$|^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$)", message = "Wrong format of phone number.")
+    @NotBlank(message = "Số điện thoại không được để trống.")
+    @Pattern(regexp = "(^$|^(0?)(3[2-9]|5[6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])[0-9]{7}$)", message = "Sai định dạng số điện thoại")
     private String phoneNumber;
 
-    @NotBlank(message = "Email can not empty.")
-    @Pattern(regexp = "(^$|^[a-z][a-z0-9_\\.]{5,32}@[a-z0-9]{2,}(\\.[a-z0-9]{2,}){1,}$)", message = "Wrong format of email.")
+    @Pattern(regexp = "(^$|^[a-z][a-z0-9_\\.]{5,32}@[a-z0-9]{2,}(\\.[a-z0-9]{2,}){1,}$)", message = "Sai định dạng email")
     private String email;
 
-    @NotBlank(message = "Address can not empty.")
     private String address;
 
     private Boolean deleteFlag;
