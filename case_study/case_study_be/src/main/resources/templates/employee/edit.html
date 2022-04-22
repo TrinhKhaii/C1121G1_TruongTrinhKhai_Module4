@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Employee</title>
+    <th:block th:replace="~{/menu::linkHead}"/>
+</head>
+<body>
+<div id="header"></div>
+<nav th:replace="~{/menu::header}"></nav>
+<nav th:replace="~{/menu::nav_bar}"></nav>
+
+<div class=" col-4 mx-auto">
+    <form method="post" th:action="@{/employee/update}" th:object="${employeeDTO}">
+        <div class="modal-header">
+            <h5 class="modal-title">Chỉnh sửa thông tin nhân viên</h5>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" name="id" th:field="*{employeeId}">
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="employeeCode" class="form-control" th:field="*{employeeCode}"/>
+                    <label class="form-label" for="employeeCode">Mã nhân viên<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('employeeCode')}" th:errors="*{employeeCode}"></small>
+            </div>
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="customerName" class="form-control" th:field="*{name}"/>
+                    <label class="form-label" for="customerName">Họ Tên<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+            </div>
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="date" id="dayOfBirth" class="form-control" th:field="*{dayOfBirth}"/>
+                    <label class="form-label" for="dayOfBirth">Ngày sinh<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('dayOfBirth')}" th:errors="*{dayOfBirth}"></small>
+
+            </div>
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="idCard" class="form-control"  th:field="*{idCard}"/>
+                    <label class="form-label" for="idCard">Số CMND<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}"></small>
+            </div>
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="phoneNumber" class="form-control"  th:field="*{phoneNumber}"/>
+                    <label class="form-label" for="phoneNumber">Số điện thoại<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></small>
+            </div>
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="email" class="form-control"  th:field="*{email}"/>
+                    <label class="form-label" for="email">Email<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+            </div>
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="address" class="form-control"  th:field="*{address}"/>
+                    <label class="form-label" for="address">Địa chỉ<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></small>
+            </div>
+
+            <label class="form-label" for="position">Vị trí<span class="text-danger">(*)</span></label>
+            <select th:field="*{position}" id="position" class="form-control mb-4">
+                <option th:each="item: ${positions}" th:value="${item.positionId}" th:text="${item.positionName}"></option>
+            </select>
+
+            <label class="form-label" for="educationDegree">Trình độ học vấn<span class="text-danger">(*)</span></label>
+            <select th:field="*{educationDegree}" id="educationDegree" class="form-control mb-4">
+                <option th:each="item: ${educationDegrees}" th:value="${item.educationDegreeId}" th:text="${item.educationDegreeName}"></option>
+            </select>
+
+            <label class="form-label" for="division">Bộ phận<span class="text-danger">(*)</span></label>
+            <select th:field="*{division}" id="division" class="form-control mb-4">
+                <option th:each="item: ${divitions}" th:value="${item.divisionId}" th:text="${item.divisionName}"></option>
+            </select>
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="salary" class="form-control"  th:field="*{salary}"/>
+                    <label class="form-label" for="salary">Lương<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></small>
+            </div>
+
+            <input type="hidden" name="userNameId" th:field="*{userDTO.userNameId}">
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="user" class="form-control"  th:field="*{userDTO.userName}"/>
+                    <label class="form-label" for="user">Username<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('userDTO.userName')}" th:errors="*{userDTO.userName}"></small>
+            </div>
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="password" id="currentPassword" class="form-control"  th:field="*{userDTO.currentPassword}"/>
+                    <label class="form-label" for="currentPassword">Mật khẩu hiện tại<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('currentPassword')}" th:errors="*{currentPassword}"></small>
+            </div>
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="password" id="password" class="form-control"  th:field="*{userDTO.password}"/>
+                    <label class="form-label" for="password">Mật khẩu mới<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('userDTO.password')}" th:errors="*{userDTO.password}"></small>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" value="Cập nhật"/>
+        </div>
+    </form>
+</div>
+</body>
+
+<th:block th:replace="/menu::linkScript"/>
+</html>

@@ -45,7 +45,7 @@ public class CustomerController {
 
     @GetMapping(value = {"", "/search"})
     public ModelAndView showList(@RequestParam("searchValue") Optional<String> search,
-                                 @PageableDefault(value = 5) Pageable pageable) {
+                                 @PageableDefault(value = 3) Pageable pageable) {
         ModelAndView modelAndView = new ModelAndView("/customer/list");
         String searchValue = search.orElse("");
         Page<Customer> customers = iCustomerService.findAllByName(searchValue, pageable);

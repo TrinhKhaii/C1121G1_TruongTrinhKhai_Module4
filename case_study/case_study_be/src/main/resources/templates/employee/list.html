@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Customer</title>
+    <title>Employee</title>
     <th:block th:replace="~{/menu::linkHead}"/>
 </head>
 <body>
@@ -18,13 +18,13 @@
         <!-- Container wrapper -->
         <div class="container-fluid">
             <!-- Search form -->
-            <form th:action="@{/customer/search}">
+            <form th:action="@{/employee/search}">
                 <input type="text" name="searchValue" th:value="${searchValue}" placeholder="Name"/>
                 <button class=" border-0" id="search-addon">Search</button>
             </form>
             <!-- Right links -->
             <div class="navbar-nav ms-auto d-flex flex-row">
-                <a type="button" th:href="@{/customer/create}" class="btn btn-primary me-3">
+                <a type="button" th:href="@{/employee/create}" class="btn btn-primary me-3">
                     THÊM MỚI
                 </a>
             </div>
@@ -36,51 +36,55 @@
     <thead class="bg-light">
     <tr>
         <th>STT</th>
-        <th>Mã khách hàng</th>
+        <th>Mã nhân viên</th>
         <th>Tên</th>
-        <th>Giới tính</th>
         <th>Ngày sinh</th>
         <th>CMND</th>
         <th>Số điện thoại</th>
         <th>Email</th>
         <th>Địa chỉ</th>
-        <th>Loại</th>
+        <th>Vị trí</th>
+        <th>Bộ phận</th>
+        <th>Trình độ học vấn</th>
+        <th>Lương</th>
         <th>Chỉnh Sửa</th>
         <th>Xoá</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="customer, loop: ${customers}">
-            <td th:text="${loop.count}"></td>
-            <td th:text="${customer.customerCode}"></td>
-            <td th:text="${customer.name}"></td>
-            <td th:text="${customer.gender}"></td>
-            <td th:text="${customer.dayOfBirth}"></td>
-            <td th:text="${customer.idCard}"></td>
-            <td th:text="${customer.phoneNumber}"></td>
-            <td th:text="${customer.email}"></td>
-            <td th:text="${customer.address}"></td>
-            <td th:text="${customer.customerType.customerTypeName}"></td>
-            <td>
-                <a type="button" class="btn btn-link btn-sm btn-rounded edit_btn" th:href="@{/customer/edit/{id}(id=${customer.customerId})}">
-                    Sửa
-                </a>
-            </td>
-            <td>
-                <a type="button" class="btn btn-danger btn-sm btn-rounded delete_btn" data-mdb-toggle="modal"
-                   data-mdb-target="#deleteModal" th:data-id="${customer.customerId}" th:data-name="${customer.name}"
-                    onclick="sendCustomerInfo($(this))">
-                    Xóa
-                </a>
-            </td>
+    <tr th:each="employee, loop: ${employees}">
+        <td th:text="${loop.count}"></td>
+        <td th:text="${employee.employeeCode}"></td>
+        <td th:text="${employee.name}"></td>
+        <td th:text="${employee.dayOfBirth}"></td>
+        <td th:text="${employee.idCard}"></td>
+        <td th:text="${employee.phoneNumber}"></td>
+        <td th:text="${employee.email}"></td>
+        <td th:text="${employee.address}"></td>
+        <td th:text="${employee.position.positionName}"></td>
+        <td th:text="${employee.division.getDivisionName()}"></td>
+        <td th:text="${employee.educationDegree.educationDegreeName}"></td>
+        <td th:text="${employee.salary}"></td>
+        <td>
+            <a type="button" class="btn btn-link btn-sm btn-rounded edit_btn" th:href="@{/employee/edit/{id}(id=${employee.employeeId})}">
+                Sửa
+            </a>
+        </td>
+        <td>
+            <a type="button" class="btn btn-danger btn-sm btn-rounded delete_btn" data-mdb-toggle="modal"
+               data-mdb-target="#deleteModal" th:data-id="${employee.employeeId}" th:data-name="${employee.name}"
+               onclick="sendEmployeeInfo($(this))">
+                Xóa
+            </a>
+        </td>
     </tr>
     </tbody>
 </table>
 
 <div class="col-12" style="display: flex; justify-content: flex-end; padding-right: 20px">
-    <a th:href="@{/customer(page=${customers.number - 1}, search=${searchValue})}" th:if="${customers.hasPrevious()}">Previous</a>
-    <span th:text="${customers.number + 1}"></span>/<span th:text="${customers.totalPages}"></span>
-    <a th:href="@{/customer(page=${customers.number + 1}, search=${searchValue})}" th:if="${customers.hasNext()}">Next</a>
+    <a th:href="@{/employee(page=${employees.number - 1}, search=${searchValue})}" th:if="${employees.hasPrevious()}">Previous</a>
+    <span th:text="${employees.number + 1}"></span>/<span th:text="${employees.totalPages}"></span>
+    <a th:href="@{/employee(page=${employees.number + 1}, search=${searchValue})}" th:if="${employees.hasNext()}">Next</a>
 </div>
 
 </body>
@@ -109,7 +113,7 @@
 <th:block th:replace="/menu::linkScript"/>
 <script>
     // Show delete modal
-    function sendCustomerInfo(a) {
+    function sendEmployeeInfo(a) {
         let id = a.attr('data-id');
         let name = a.attr('data-name');
         document.getElementById("idDelete").value = id;

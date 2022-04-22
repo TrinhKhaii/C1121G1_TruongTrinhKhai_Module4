@@ -20,6 +20,9 @@ public class Employee extends Person {
     private Integer employeeId;
 
     @NotNull
+    private String employeeCode;
+
+    @NotNull
     private Double salary;
 
     @NotNull
@@ -37,8 +40,8 @@ public class Employee extends Person {
     @JoinColumn(name = "division_id", referencedColumnName = "divisionId")
     private Division division;
 
-    @ManyToOne
-    @JoinColumn(name = "username", referencedColumnName = "userName")
+    @OneToOne
+    @JoinColumn(name = "user_name_id", referencedColumnName = "userNameId")
     private User user;
 
     @OneToMany(mappedBy = "employee")
@@ -55,6 +58,15 @@ public class Employee extends Person {
     public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
+
+    public String getEmployeeCode() {
+        return employeeCode;
+    }
+
+    public void setEmployeeCode(String employeeCode) {
+        this.employeeCode = employeeCode;
+    }
+
 
     public Double getSalary() {
         return salary;

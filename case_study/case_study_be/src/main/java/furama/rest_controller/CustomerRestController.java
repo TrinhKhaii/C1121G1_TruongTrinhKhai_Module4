@@ -1,4 +1,4 @@
-package furama.controller;
+package furama.rest_controller;
 
 import furama.dto.customer_dto.CustomerDTO;
 import furama.model.customer_entity.Customer;

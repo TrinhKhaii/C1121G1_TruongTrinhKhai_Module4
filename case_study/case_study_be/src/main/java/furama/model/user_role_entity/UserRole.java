@@ -11,8 +11,7 @@ import java.io.Serializable;
     Time: 09:17
 */
 @Entity
-@Data
-public class UserRole implements Serializable {
+public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -22,6 +21,33 @@ public class UserRole implements Serializable {
     private Role role;
 
     @ManyToOne
-    @JoinColumn(name = "username", referencedColumnName = "userName")
+    @JoinColumn(name = "user_name_id", referencedColumnName = "userNameId")
     private User user;
+
+    public UserRole() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
