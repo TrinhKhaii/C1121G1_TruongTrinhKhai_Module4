@@ -17,4 +17,6 @@ public interface IServiceService extends IGeneralService<Service>{
     Iterable<ServiceType> findAllServiceType();
 
     Iterable<RentType> findAllRentType();
+
+    Iterable<Service> findAllByServiceTypeId();
 }

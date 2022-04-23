@@ -5,6 +5,7 @@ package furama.model.customer_entity;
     Time: 22:19
 */
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import furama.model.Person;
 import furama.model.contract_entity.Contract;
 
@@ -29,6 +30,7 @@ public class Customer extends Person {
     private CustomerType customerType;
 
     @OneToMany(mappedBy = "customer")
+    @JsonBackReference
     private Set<Contract> contracts;
 
     public Customer() {
@@ -67,4 +69,11 @@ public class Customer extends Person {
         this.customerType = customerType;
     }
 
+    public Set<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(Set<Contract> contracts) {
+        this.contracts = contracts;
+    }
 }

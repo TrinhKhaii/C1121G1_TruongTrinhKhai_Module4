@@ -1,9 +1,7 @@
 package furama.controller;
 
-import furama.dto.customer_dto.CustomerDTO;
 import furama.dto.employee_dto.EmployeeDTO;
 import furama.dto.employee_dto.UserDTO;
-import furama.model.customer_entity.Customer;
 import furama.model.employee_entity.Division;
 import furama.model.employee_entity.EducationDegree;
 import furama.model.employee_entity.Employee;
@@ -75,6 +73,9 @@ public class EmployeeController {
     @PostMapping(value = "/save")
     public String save(@Valid @ModelAttribute("employeeDTO") EmployeeDTO employeeDTO,
                        BindingResult bindingResult) {
+        EmployeeDTO employeeDTOError = new EmployeeDTO();
+        employeeDTOError.setiEmployeeService(iEmployeeService);
+        employeeDTOError.validate(employeeDTO, bindingResult);
         if (bindingResult.hasErrors()) {
             return "/employee/create";
         }

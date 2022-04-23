@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Customer</title>
+    <th:block th:replace="~{/menu::linkHead}"/>
+</head>
+<body>
+<div id="header"></div>
+<nav th:replace="~{/menu::header}"></nav>
+<nav th:replace="~{/menu::nav_bar}"></nav>
+<header>
+    <!-- Navbar -->
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+            <!-- Search form -->
+            <form th:action="@{/contract/search}">
+                <input type="text" name="searchValue" th:value="${searchValue}" placeholder="Name"/>
+                <button class=" border-0" id="search-addon">Search</button>
+            </form>
+            <!-- Right links -->
+            <div class="navbar-nav ms-auto d-flex flex-row">
+                <a type="button" th:href="@{/contract-detail}" class="btn btn-primary me-3">
+                    HỢP ĐỒNG CHI TIẾT
+                </a>
+                <a type="button" th:href="@{/contract/create}" class="btn btn-primary me-3">
+                    THÊM MỚI
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
+<!-- List -->
+<table class="table table-striped table-hover">
+    <thead class="bg-light">
+    <tr>
+        <th>STT</th>
+        <th>Mã hợp đồng</th>
+        <th>Ngày bắt đầu</th>
+        <th>Ngày kết thúc</th>
+        <th>Tiền cọc</th>
+        <th>Tổng số tiền</th>
+        <th>Nhân viên</th>
+        <th>Khách hàng</th>
+        <th>Dịch vụ</th>
+<!--        <th>Chỉnh Sửa</th>-->
+<!--        <th>Xoá</th>-->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="contract, loop: ${contracts}">
+        <td th:text="${loop.count}"></td>
+        <td th:text="${contract.contractCode}"></td>
+        <td th:text="${contract.contractStartDate}"></td>
+        <td th:text="${contract.contractEndDate}"></td>
+        <td th:text="${contract.contractDeposit}"></td>
+        <td th:text="${contract.contractTotalMoney}"></td>
+        <td th:text="${contract.employee.name}"></td>
+        <td th:text="${contract.customer.name}"></td>
+        <td th:text="${contract.service.serviceName}"></td>
+<!--        <td>-->
+<!--            <a type="button" class="btn btn-link btn-sm btn-rounded edit_btn" th:href="@{/contract/edit/{id}(id=${contract.contractId})}">-->
+<!--                Sửa-->
+<!--            </a>-->
+<!--        </td>-->
+<!--        <td>-->
+<!--            <a type="button" class="btn btn-danger btn-sm btn-rounded delete_btn" data-mdb-toggle="modal"-->
+<!--               data-mdb-target="#deleteModal" th:data-id="${contract.contractId}" th:data-name="${contract.customer.name}"-->
+<!--               onclick="sendContractInfo($(this))">-->
+<!--                Xóa-->
+<!--            </a>-->
+<!--        </td>-->
+    </tr>
+    </tbody>
+</table>
+
+<div class="col-12" style="display: flex; justify-content: flex-end; padding-right: 20px">
+    <a th:href="@{/contract(page=${contracts.number - 1}, search=${searchValue})}" th:if="${contracts.hasPrevious()}">Previous</a>
+    <span th:text="${contracts.number + 1}"></span>/<span th:text="${contracts.totalPages}"></span>
+    <a th:href="@{/contract(page=${contracts.number + 1}, search=${searchValue})}" th:if="${contracts.hasNext()}">Next</a>
+</div>
+
+</body>
+<!-- Delete Modal -->
+<!--<div class="modal fade" id="deleteModal" tabindex="-1">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <form method="post" th:action="@{/customer/delete}">-->
+<!--                <input type="hidden" name="idDelete" id="idDelete">-->
+<!--                <div class="modal-header">-->
+<!--                    <h5 class="modal-title">Xác nhận xóa</h5>-->
+<!--                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <p>Bạn chắc chắn muốn xóa khách hàng <span class="text-danger" id="deleteName"></span> ?</p>-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" >Hủy</button>-->
+<!--                    <input type="submit" class="btn btn-danger" id="delete_btn" value="Đồng ý"/>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<th:block th:replace="/menu::linkScript"/>
+<!--<script>-->
+<!--    // Show delete modal-->
+<!--    function sendContractInfo(a) {-->
+<!--        let id = a.attr('data-id');-->
+<!--        let name = a.attr('data-name');-->
+<!--        document.getElementById("idDelete").value = id;-->
+<!--        document.getElementById("deleteName").innerText = name;-->
+<!--    }-->
+<!--</script>-->
+</html>

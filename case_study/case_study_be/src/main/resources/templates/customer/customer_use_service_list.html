@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Customer</title>
+    <title>Customer Use Service</title>
     <th:block th:replace="~{/menu::linkHead}"/>
 </head>
 <body>
@@ -18,17 +18,14 @@
         <!-- Container wrapper -->
         <div class="container-fluid">
             <!-- Search form -->
-            <form th:action="@{/customer/search}">
+            <form th:action="@{/customer/customer-list-use-service/search}">
                 <input type="text" name="searchValue" th:value="${searchValue}" placeholder="Name"/>
                 <button class=" border-0" id="search-addon">Search</button>
             </form>
             <!-- Right links -->
             <div class="navbar-nav ms-auto d-flex flex-row">
-                <a type="button" th:href="@{/customer/customer-list-use-service}" class="btn btn-primary me-3">
-                    DANH SÁCH KHÁCH HÀNG SỬ DỤNG DỊCH VỤ
-                </a>
-                <a type="button" th:href="@{/customer/create}" class="btn btn-primary me-3">
-                    THÊM MỚI
+                <a type="button" th:href="@{/customer}" class="btn btn-primary me-3">
+                    DANH SÁCH KHÁCH HÀNG
                 </a>
             </div>
         </div>
@@ -40,42 +37,42 @@
     <tr>
         <th>STT</th>
         <th>Mã khách hàng</th>
-        <th>Tên</th>
-        <th>Giới tính</th>
-        <th>Ngày sinh</th>
-        <th>CMND</th>
-        <th>Số điện thoại</th>
-        <th>Email</th>
-        <th>Địa chỉ</th>
-        <th>Loại</th>
+        <th>Tên khách hàng</th>
+        <th>Mã hợp đồng</th>
+        <th>Dịch vụ</th>
+        <th>Chi phí dịch vụ</th>
+        <th>Dịch vụ đi kèm</th>
+        <th>Chi phí dịch vụ đi kèm</th>
+        <th>Số lượng</th>
+        <th>Tổng tiền</th>
         <th>Chỉnh Sửa</th>
         <th>Xoá</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="customer, loop: ${customers}">
-            <td th:text="${loop.count}"></td>
-            <td th:text="${customer.customerCode}"></td>
-            <td th:text="${customer.name}"></td>
-            <td th:text="${customer.gender}"></td>
-            <td th:text="${customer.dayOfBirth}"></td>
-            <td th:text="${customer.idCard}"></td>
-            <td th:text="${customer.phoneNumber}"></td>
-            <td th:text="${customer.email}"></td>
-            <td th:text="${customer.address}"></td>
-            <td th:text="${customer.customerType.customerTypeName}"></td>
-            <td>
-                <a type="button" class="btn btn-link btn-sm btn-rounded edit_btn" th:href="@{/customer/edit/{id}(id=${customer.customerId})}">
-                    Sửa
-                </a>
-            </td>
-            <td>
-                <a type="button" class="btn btn-danger btn-sm btn-rounded delete_btn" data-mdb-toggle="modal"
-                   data-mdb-target="#deleteModal" th:data-id="${customer.customerId}" th:data-name="${customer.name}"
-                    onclick="sendCustomerInfo($(this))">
-                    Xóa
-                </a>
-            </td>
+    <tr th:each="customerUseService, loop: ${customerUseServices}">
+        <td th:text="${loop.count}"></td>
+        <td th:text="${customerUseService.customerCode}"></td>
+        <td th:text="${customerUseService.customerName}"></td>
+        <td th:text="${customerUseService.contractCode}"></td>
+        <td th:text="${customerUseService.serviceName}"></td>
+        <td th:text="${customerUseService.serviceCost}"></td>
+        <td th:text="${customerUseService.attachServiceName}"></td>
+        <td th:text="${customerUseService.attachServiceCost}"></td>
+        <td th:text="${customerUseService.quantity}"></td>
+        <td th:text="${customerUseService.total}"></td>
+        <td>
+            <a type="button" class="btn btn-link btn-sm btn-rounded edit_btn" th:href="@{/customer/edit/{id}(id=${customer.customerId})}">
+                Sửa
+            </a>
+        </td>
+        <td>
+            <a type="button" class="btn btn-danger btn-sm btn-rounded delete_btn" data-mdb-toggle="modal"
+               data-mdb-target="#deleteModal" th:data-id="${customer.customerId}" th:data-name="${customer.name}"
+               onclick="sendCustomerInfo($(this))">
+                Xóa
+            </a>
+        </td>
     </tr>
     </tbody>
 </table>

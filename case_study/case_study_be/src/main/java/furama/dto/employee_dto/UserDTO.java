@@ -7,7 +7,6 @@ package furama.dto.employee_dto;
 
 import furama.model.user_role_entity.User;
 import furama.service.IUserService;
-import furama.service.impl.UserService;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -20,7 +19,7 @@ public class UserDTO implements Validator {
     private String userName;
     @NotBlank(message = "Mật khẩu không được để trống.")
     private String password;
-    IUserService iUserService;
+    private IUserService iUserService;
 
     private String currentPassword;
 

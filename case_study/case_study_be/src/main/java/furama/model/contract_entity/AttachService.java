@@ -13,7 +13,6 @@ import java.util.Set;
     Time: 13:44
 */
 @Entity
-@Data
 public class AttachService {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,5 +26,57 @@ public class AttachService {
     private String attachServiceStatus;
 
     @OneToMany(mappedBy = "attachService")
+    @JsonBackReference
     private Set<ContractDetail> contractDetails;
+
+    public AttachService() {
+    }
+
+    public Integer getAttachServiceId() {
+        return attachServiceId;
+    }
+
+    public void setAttachServiceId(Integer attachServiceId) {
+        this.attachServiceId = attachServiceId;
+    }
+
+    public String getAttachServiceName() {
+        return attachServiceName;
+    }
+
+    public void setAttachServiceName(String attachServiceName) {
+        this.attachServiceName = attachServiceName;
+    }
+
+    public Double getAttachServiceCost() {
+        return attachServiceCost;
+    }
+
+    public void setAttachServiceCost(Double attachServiceCost) {
+        this.attachServiceCost = attachServiceCost;
+    }
+
+    public String getAttachServiceUnit() {
+        return attachServiceUnit;
+    }
+
+    public void setAttachServiceUnit(String attachServiceUnit) {
+        this.attachServiceUnit = attachServiceUnit;
+    }
+
+    public String getAttachServiceStatus() {
+        return attachServiceStatus;
+    }
+
+    public void setAttachServiceStatus(String attachServiceStatus) {
+        this.attachServiceStatus = attachServiceStatus;
+    }
+
+    public Set<ContractDetail> getContractDetails() {
+        return contractDetails;
+    }
+
+    public void setContractDetails(Set<ContractDetail> contractDetails) {
+        this.contractDetails = contractDetails;
+    }
 }

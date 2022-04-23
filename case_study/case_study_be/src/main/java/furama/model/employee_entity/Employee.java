@@ -5,6 +5,7 @@ package furama.model.employee_entity;
     Time: 00:52
 */
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import furama.model.Person;
 import furama.model.contract_entity.Contract;
 import furama.model.user_role_entity.User;
@@ -45,6 +46,7 @@ public class Employee extends Person {
     private User user;
 
     @OneToMany(mappedBy = "employee")
+    @JsonBackReference
     private Set<Contract> contracts;
 
     public Employee() {
@@ -106,5 +108,13 @@ public class Employee extends Person {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(Set<Contract> contracts) {
+        this.contracts = contracts;
     }
 }

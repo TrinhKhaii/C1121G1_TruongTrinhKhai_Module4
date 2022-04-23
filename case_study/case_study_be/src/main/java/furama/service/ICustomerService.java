@@ -15,4 +15,6 @@ public interface ICustomerService extends IGeneralService<Customer>{
     Page<Customer> findAllByName(String name, Pageable pageable);
 
     Iterable<CustomerType> findAllCustomerType();
+
+    Customer findByCode(String customerCode);
 }

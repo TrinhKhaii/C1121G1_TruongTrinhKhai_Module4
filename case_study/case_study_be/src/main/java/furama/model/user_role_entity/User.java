@@ -1,5 +1,6 @@
 package furama.model.user_role_entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import furama.model.employee_entity.Employee;
 
 
@@ -21,6 +22,7 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference
     private Set<UserRole> userRoles;
 
     @OneToOne(mappedBy = "user")

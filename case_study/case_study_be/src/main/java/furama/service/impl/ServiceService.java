@@ -62,4 +62,9 @@ public class ServiceService implements IServiceService {
     public Iterable<RentType> findAllRentType() {
         return iRentTypeRepository.findAll();
     }
+
+    @Override
+    public Iterable<Service> findAllByServiceTypeId() {
+        return iServiceRepository.findAllByServiceTypeId();
+    }
 }

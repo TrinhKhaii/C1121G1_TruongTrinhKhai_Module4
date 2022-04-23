@@ -8,8 +8,12 @@ package furama.dto.employee_dto;
 import furama.dto.PersonDTO;
 import furama.model.employee_entity.Division;
 import furama.model.employee_entity.EducationDegree;
+import furama.model.employee_entity.Employee;
 import furama.model.employee_entity.Position;
 import furama.model.user_role_entity.User;
+import furama.service.IEmployeeService;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
@@ -18,7 +22,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 
-public class EmployeeDTO extends PersonDTO {
+public class EmployeeDTO extends PersonDTO implements Validator {
     private Integer employeeId;
 
     @NotBlank(message = "Mã nhân viên không được để trống")
@@ -39,6 +43,8 @@ public class EmployeeDTO extends PersonDTO {
     private UserDTO userDTO;
 
     private String currentPassword;
+
+    private IEmployeeService iEmployeeService;
 
     public EmployeeDTO() {
     }
@@ -105,5 +111,30 @@ public class EmployeeDTO extends PersonDTO {
 
     public void setUserDTO(UserDTO userDTO) {
         this.userDTO = userDTO;
+    }
+
+    public IEmployeeService getiEmployeeService() {
+        return iEmployeeService;
+    }
+
+    public void setiEmployeeService(IEmployeeService iEmployeeService) {
+        this.iEmployeeService = iEmployeeService;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        EmployeeDTO employeeDTO = (EmployeeDTO) target;
+        String employeeCurrentCode = employeeDTO.getEmployeeCode();
+        Employee employee = this.iEmployeeService.findByCode(employeeDTO.getEmployeeCode());
+        if (employee != null) {
+            if (employee.getEmployeeCode().equals(employeeCurrentCode)) {
+                errors.rejectValue("employeeCode", "", "Mã khách hàng đã tồn tại.");
+            }
+        }
     }
 }

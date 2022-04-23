@@ -1,5 +1,6 @@
 package furama.model.user_role_entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class Role {
     private String roleName;
 
     @OneToMany(mappedBy = "role")
+    @JsonBackReference
     private Set<UserRole> userRoles;
 
     public Role() {

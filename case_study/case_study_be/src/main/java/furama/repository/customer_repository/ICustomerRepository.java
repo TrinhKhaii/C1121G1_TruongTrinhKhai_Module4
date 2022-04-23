@@ -15,4 +15,6 @@ import org.springframework.data.repository.query.Param;
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
     @Query(value = "select * from customer where customer.delete_flag = 0 and customer.name like concat('%',:customer_name,'%')", nativeQuery = true)
     Page<Customer> findAllByNameContaining(@Param("customer_name") String name, Pageable pageable);
+
+    Customer findByCustomerCode(String name);
 }

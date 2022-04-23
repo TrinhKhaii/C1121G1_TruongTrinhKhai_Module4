@@ -54,4 +54,9 @@ public class CustomerService implements ICustomerService {
     public Iterable<CustomerType> findAllCustomerType() {
         return iCustomerTypeRepository.findAll();
     }
+
+    @Override
+    public Customer findByCode(String customerCode) {
+        return iCustomerRepository.findByCustomerCode(customerCode);
+    }
 }

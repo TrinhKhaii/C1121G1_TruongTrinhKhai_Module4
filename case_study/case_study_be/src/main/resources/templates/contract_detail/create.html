@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Contract</title>
+    <th:block th:replace="~{/menu::linkHead}"/>
+</head>
+<body>
+<div id="header"></div>
+<nav th:replace="~{/menu::header}"></nav>
+<nav th:replace="~{/menu::nav_bar}"></nav>
+
+<div class=" col-4 mx-auto">
+    <form method="post" th:action="@{/contract-detail/save}" th:object="${contractDetailDTO}">
+        <div class="modal-header">
+            <h5 class="modal-title">Thêm mới hợp đồng chi tiết</h5>
+        </div>
+        <div class="modal-body">
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="contractDetailCode" class="form-control" th:field="*{contractDetailCode}"/>
+                    <label class="form-label" for="contractDetailCode">Mã hợp đồng chi tiết<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('contractDetailCode')}" th:errors="*{contractDetailCode}"></small>
+            </div>
+
+            <label class="form-label" for="employee">Mã hợp đồng</label>
+            <select th:field="*{contract}" id="employee" class="form-control mb-4">
+                <option th:each="item: ${contracts}" th:value="${item.contractId}" th:text="${item.contractCode}"></option>
+            </select>
+
+            <label class="form-label" for="attachService">Tên dịch vụ đi kèm</label>
+            <select th:field="*{attachService}" id="attachService" class="form-control mb-4">
+                <option th:each="item: ${attactServices}" th:value="${item.attachServiceId}" th:text="${item.attachServiceName}"></option>
+            </select>
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="quantity" class="form-control" th:field="*{quantity}"/>
+                    <label class="form-label" for="quantity">Số lượng<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></small>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" value="Thêm mới"/>
+        </div>
+    </form>
+</div>
+</body>
+
+<th:block th:replace="/menu::linkScript"/>
+</html>

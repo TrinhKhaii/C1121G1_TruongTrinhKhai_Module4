@@ -46,8 +46,8 @@
         <th>Diện tích hồ bơi</th>
         <th>Số tầng</th>
         <th>Dịch vụ miễn phí đi kèm</th>
-        <th>Chỉnh Sửa</th>
-        <th>Xoá</th>
+<!--        <th>Chỉnh Sửa</th>-->
+<!--        <th>Xoá</th>-->
     </tr>
     </thead>
     <tbody>
@@ -64,18 +64,18 @@
             <td th:text="${service.poolArea}"></td>
             <td th:text="${service.numberOdFloors}"></td>
             <td th:text="${service.freeServiceInclude}"></td>
-            <td>
-                <a type="button" class="btn btn-link btn-sm btn-rounded edit_btn" th:href="@{/service/edit/{id}(id=${service.serviceId})}">
-                    Sửa
-                </a>
-            </td>
-            <td>
-                <a type="button" class="btn btn-danger btn-sm btn-rounded delete_btn" data-mdb-toggle="modal"
-                   data-mdb-target="#deleteModal" th:data-id="${service.serviceId}" th:data-name="${service.serviceName}"
-                   onclick="sendCustomerInfo($(this))">
-                    Xóa
-                </a>
-            </td>
+<!--            <td>-->
+<!--                <a type="button" class="btn btn-link btn-sm btn-rounded edit_btn" th:href="@{/service/edit/{id}(id=${service.serviceId})}">-->
+<!--                    Sửa-->
+<!--                </a>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                <a type="button" class="btn btn-danger btn-sm btn-rounded delete_btn" data-mdb-toggle="modal"-->
+<!--                   data-mdb-target="#deleteModal" th:data-id="${service.serviceId}" th:data-name="${service.serviceName}"-->
+<!--                   onclick="sendCustomerInfo($(this))">-->
+<!--                    Xóa-->
+<!--                </a>-->
+<!--            </td>-->
         </div>
     </tr>
     </tbody>

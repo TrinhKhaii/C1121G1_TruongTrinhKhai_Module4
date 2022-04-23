@@ -1,5 +1,6 @@
 package furama.model.service_entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import furama.model.contract_entity.Contract;
 import lombok.Data;
 
@@ -46,6 +47,7 @@ public class Service {
     private ServiceType serviceType;
 
     @OneToMany(mappedBy = "service")
+    @JsonBackReference
     private Set<Contract> contracts;
 
     public Service() {

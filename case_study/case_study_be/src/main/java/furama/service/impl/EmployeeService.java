@@ -60,6 +60,11 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
+    public Employee findByCode(String employeeCode) {
+        return iEmployeeRepository.findByEmployeeCode(employeeCode);
+    }
+
+    @Override
     public Iterable<Division> findAllDivision() {
         return iDivisionRepository.findAll();
     }

@@ -3,15 +3,14 @@ package furama.controller;
 import furama.dto.customer_dto.CustomerDTO;
 import furama.model.customer_entity.Customer;
 import furama.model.customer_entity.CustomerType;
+import furama.model.customer_entity.CustomerUseService;
 import furama.service.ICustomerService;
+import furama.service.ICustomerUseServiceService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 /*
@@ -32,6 +30,9 @@ import java.util.Optional;
 public class CustomerController {
     @Autowired
     private ICustomerService iCustomerService;
+
+    @Autowired
+    private ICustomerUseServiceService iCustomerUseServiceService;
 
     @ModelAttribute("genders")
     public Iterable<String> sendGenderList() {
@@ -64,6 +65,9 @@ public class CustomerController {
     @PostMapping(value = "/save")
     public String save(@Valid @ModelAttribute("customerDTO") CustomerDTO customerDTO,
                        BindingResult bindingResult) {
+        CustomerDTO customerDTOError = new CustomerDTO();
+        customerDTOError.setiCustomerService(iCustomerService);
+        customerDTOError.validate(customerDTO, bindingResult);
         if (bindingResult.hasErrors()) {
             return "/customer/create";
         }
@@ -109,5 +113,16 @@ public class CustomerController {
             iCustomerService.save(customerDelete);
         }
         return "redirect:/customer";
+    }
+
+    @GetMapping(value = {"/customer-list-use-service", "/customer-list-use-service/search"})
+    public ModelAndView showCustomerUseServiceList(@RequestParam("searchValue") Optional<String> search,
+                                                   @PageableDefault(value = 3) Pageable pageable) {
+        ModelAndView modelAndView  = new ModelAndView("/customer/customer_use_service_list");
+        String searchValue = search.orElse("");
+        Page<CustomerUseService> customerUseServices = iCustomerUseServiceService.findAllCustomerUseService(searchValue, pageable);
+        modelAndView.addObject("customerUseServices", customerUseServices);
+        modelAndView.addObject("searchValue", searchValue);
+        return modelAndView;
     }
 }

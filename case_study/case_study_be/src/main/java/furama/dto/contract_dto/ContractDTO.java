@@ -1,64 +1,52 @@
-package furama.model.contract_entity;
+package furama.dto.contract_dto;
+/*
+    Created by Trinh Khai
+    Date: 22/04/2022
+    Time: 18:11
+*/
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import furama.model.contract_entity.Contract;
 import furama.model.customer_entity.Customer;
 import furama.model.employee_entity.Employee;
 import furama.model.service_entity.Service;
-import lombok.Data;
+import furama.service.IContractService;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
-import javax.persistence.*;
-
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+import javax.validation.constraints.Pattern;
 
-/*
-    Created by Trinh Khai
-    Date: 17/04/2022
-    Time: 10:17
-*/
-@Entity
-public class Contract {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ContractDTO implements Validator {
     private Integer contractId;
 
-    @NotNull
+    @NotBlank(message = "Mã hợp đồng không được để trống.")
+    @Pattern(regexp = "(^$|HD-\\d{4})", message = "Mã hợp đồng phải có định dạng HD-XXXX, trong đó X là số tự nhiên.")
     private String contractCode;
 
-    @NotNull
+    @NotBlank(message = "Ngày bắt đầu không được để trống.")
     private String contractStartDate;
 
-    @NotNull
+    @NotBlank(message = "Ngày kết thúc không được để trống.")
     private String contractEndDate;
 
-    @NotNull
+    @NotNull(message = "Tiền đặt cọc không được để trống.")
     private Double contractDeposit;
 
-    @NotNull
+    @NotNull(message = "Tổng tiền không được để trống.")
     private Double contractTotalMoney;
 
     private Boolean deleteFlag;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "employee_id", referencedColumnName = "employeeId")
     private Employee employee;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "customerId")
     private Customer customer;
 
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "service_id", referencedColumnName = "serviceId")
     private Service service;
 
-    @OneToMany(mappedBy = "contract")
-    @JsonBackReference
-    private Set<ContractDetail> contractDetails;
+    private IContractService iContractService;
 
-    public Contract() {
+    public ContractDTO() {
         setDeleteFlag(false);
     }
 
@@ -142,11 +130,28 @@ public class Contract {
         this.service = service;
     }
 
-    public Set<ContractDetail> getContractDetails() {
-        return contractDetails;
+    public IContractService getiContractService() {
+        return iContractService;
     }
 
-    public void setContractDetails(Set<ContractDetail> contractDetails) {
-        this.contractDetails = contractDetails;
+    public void setiContractService(IContractService iContractService) {
+        this.iContractService = iContractService;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        ContractDTO contractDTO = (ContractDTO) target;
+        String contractCurrentCode = contractDTO.getContractCode();
+        Contract contract = this.iContractService.findByCode(contractCurrentCode);
+        if (contract != null) {
+            if (contract.getContractCode().equals(contractCurrentCode)) {
+                errors.rejectValue("contractCode", "", "Mã hợp đồng đã tồn tại.");
+            }
+        }
     }
 }

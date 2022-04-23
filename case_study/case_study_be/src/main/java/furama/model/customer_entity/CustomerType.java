@@ -17,6 +17,7 @@ public class CustomerType {
     private Integer customerTypeId;
     private String customerTypeName;
     @OneToMany(mappedBy = "customerType")
+    @JsonBackReference
     private Set<Customer> customers;
 
     public CustomerType() {

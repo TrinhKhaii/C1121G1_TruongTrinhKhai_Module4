@@ -22,7 +22,7 @@
             <input type="hidden" name="id" th:field="*{customerId}">
             <div class="form-group mb-4">
                 <div class="form-outline">
-                    <input type="text" id="customerCode" class="form-control" th:field="*{customerCode}"/>
+                    <input type="text" id="customerCode" class="form-control" th:field="*{customerCode}" readonly/>
                     <label class="form-label" for="customerCode">Mã khách hàng<span class="text-danger">(*)</span></label>
                 </div>
                 <small class="text-danger" th:if="${#fields.hasErrors('customerCode')}" th:errors="*{customerCode}"></small>

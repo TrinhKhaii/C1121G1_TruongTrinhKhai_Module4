@@ -6,6 +6,11 @@ package furama.service;
 */
 
 import furama.model.contract_entity.Contract;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface IContractService extends IGeneralService<Contract>{
+    Page<Contract> findAllByName(String name, Pageable pageable);
+
+    Contract findByCode(String code);
 }

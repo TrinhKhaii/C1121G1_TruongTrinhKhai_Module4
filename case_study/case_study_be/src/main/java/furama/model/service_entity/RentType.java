@@ -20,6 +20,7 @@ public class RentType {
     private Double rentTypeCost;
 
     @OneToMany(mappedBy = "rentType")
+    @JsonBackReference
     private Set<Service> services;
 
     public RentType() {

@@ -15,4 +15,7 @@ import org.springframework.data.repository.query.Param;
 public interface IServiceRepository extends JpaRepository<Service, Integer> {
     @Query(value = "select * from service where service.delete_flag = 0 and service.service_name like concat('%',:service_name,'%')", nativeQuery = true)
     Page<Service> findAllByServiceNameContaining(@Param("service_name") String serviceName, Pageable pageable);
+
+    @Query(value = "select * from service where service.service_type_id = 1 or service.service_type_id = 2", nativeQuery = true)
+    Iterable<Service> findAllByServiceTypeId();
 }

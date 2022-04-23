@@ -18,6 +18,7 @@ public class EducationDegree {
     private String educationDegreeName;
 
     @OneToMany(mappedBy = "educationDegree")
+    @JsonBackReference
     private Set<Employee> employees;
 
     public EducationDegree() {
