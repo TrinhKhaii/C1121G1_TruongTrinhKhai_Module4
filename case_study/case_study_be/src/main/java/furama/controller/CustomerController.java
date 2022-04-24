@@ -11,12 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -46,7 +49,11 @@ public class CustomerController {
 
     @GetMapping(value = {"", "/search"})
     public ModelAndView showList(@RequestParam("searchValue") Optional<String> search,
-                                 @PageableDefault(value = 3) Pageable pageable) {
+                                 @PageableDefault(value = 3) Pageable pageable,
+                                 Principal principal) {
+//        if (principal != null) {
+//            User user = (User) ((Authentication)principal).getPrincipal();
+//        }
         ModelAndView modelAndView = new ModelAndView("/customer/list");
         String searchValue = search.orElse("");
         Page<Customer> customers = iCustomerService.findAllByName(searchValue, pageable);
@@ -120,7 +127,7 @@ public class CustomerController {
                                                    @PageableDefault(value = 3) Pageable pageable) {
         ModelAndView modelAndView  = new ModelAndView("/customer/customer_use_service_list");
         String searchValue = search.orElse("");
-        Page<CustomerUseService> customerUseServices = iCustomerUseServiceService.findAllCustomerUseService(searchValue, pageable);
+        Page<CustomerUseService> customerUseServices = iCustomerUseServiceService.findAllByCustomerNameContaining(searchValue, pageable);
         modelAndView.addObject("customerUseServices", customerUseServices);
         modelAndView.addObject("searchValue", searchValue);
         return modelAndView;

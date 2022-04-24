@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import furama.model.customer_entity.Customer;
 import furama.model.employee_entity.Employee;
 import furama.model.service_entity.Service;
-import lombok.Data;
 
 import javax.persistence.*;
 

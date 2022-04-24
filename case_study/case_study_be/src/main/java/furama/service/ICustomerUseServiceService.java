@@ -11,5 +11,5 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ICustomerUseServiceService {
-    Page<CustomerUseService> findAllCustomerUseService(String name, Pageable pageable);
+    Page<CustomerUseService> findAllByCustomerNameContaining(String name, Pageable pageable);
 }

@@ -1,6 +1,5 @@
 package furama.model.contract_entity;
 
-import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

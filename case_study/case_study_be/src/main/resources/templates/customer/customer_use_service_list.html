@@ -45,8 +45,8 @@
         <th>Chi phí dịch vụ đi kèm</th>
         <th>Số lượng</th>
         <th>Tổng tiền</th>
-        <th>Chỉnh Sửa</th>
-        <th>Xoá</th>
+<!--        <th>Chỉnh Sửa</th>-->
+<!--        <th>Xoá</th>-->
     </tr>
     </thead>
     <tbody>
@@ -61,59 +61,59 @@
         <td th:text="${customerUseService.attachServiceCost}"></td>
         <td th:text="${customerUseService.quantity}"></td>
         <td th:text="${customerUseService.total}"></td>
-        <td>
-            <a type="button" class="btn btn-link btn-sm btn-rounded edit_btn" th:href="@{/customer/edit/{id}(id=${customer.customerId})}">
-                Sửa
-            </a>
-        </td>
-        <td>
-            <a type="button" class="btn btn-danger btn-sm btn-rounded delete_btn" data-mdb-toggle="modal"
-               data-mdb-target="#deleteModal" th:data-id="${customer.customerId}" th:data-name="${customer.name}"
-               onclick="sendCustomerInfo($(this))">
-                Xóa
-            </a>
-        </td>
+<!--        <td>-->
+<!--            <a type="button" class="btn btn-link btn-sm btn-rounded edit_btn" th:href="@{/customerUseService/edit/{id}(id=${customerUseService.})}">-->
+<!--                Sửa-->
+<!--            </a>-->
+<!--        </td>-->
+<!--        <td>-->
+<!--            <a type="button" class="btn btn-danger btn-sm btn-rounded delete_btn" data-mdb-toggle="modal"-->
+<!--               data-mdb-target="#deleteModal" th:data-id="${customer.customerId}" th:data-name="${customer.name}"-->
+<!--               onclick="sendCustomerInfo($(this))">-->
+<!--                Xóa-->
+<!--            </a>-->
+<!--        </td>-->
     </tr>
     </tbody>
 </table>
 
-<div class="col-12" style="display: flex; justify-content: flex-end; padding-right: 20px">
-    <a th:href="@{/customer(page=${customers.number - 1}, search=${searchValue})}" th:if="${customers.hasPrevious()}">Previous</a>
-    <span th:text="${customers.number + 1}"></span>/<span th:text="${customers.totalPages}"></span>
-    <a th:href="@{/customer(page=${customers.number + 1}, search=${searchValue})}" th:if="${customers.hasNext()}">Next</a>
-</div>
+<!--<div class="col-12" style="display: flex; justify-content: flex-end; padding-right: 20px">-->
+<!--    <a th:href="@{/customer(page=${customers.number - 1}, search=${searchValue})}" th:if="${customers.hasPrevious()}">Previous</a>-->
+<!--    <span th:text="${customers.number + 1}"></span>/<span th:text="${customers.totalPages}"></span>-->
+<!--    <a th:href="@{/customer(page=${customers.number + 1}, search=${searchValue})}" th:if="${customers.hasNext()}">Next</a>-->
+<!--</div>-->
 
 </body>
 <!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form method="post" th:action="@{/customer/delete}">
-                <input type="hidden" name="idDelete" id="idDelete">
-                <div class="modal-header">
-                    <h5 class="modal-title">Xác nhận xóa</h5>
-                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Bạn chắc chắn muốn xóa khách hàng <span class="text-danger" id="deleteName"></span> ?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" >Hủy</button>
-                    <input type="submit" class="btn btn-danger" id="delete_btn" value="Đồng ý"/>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<!--<div class="modal fade" id="deleteModal" tabindex="-1">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <form method="post" th:action="@{/customer/delete}">-->
+<!--                <input type="hidden" name="idDelete" id="idDelete">-->
+<!--                <div class="modal-header">-->
+<!--                    <h5 class="modal-title">Xác nhận xóa</h5>-->
+<!--                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <p>Bạn chắc chắn muốn xóa khách hàng <span class="text-danger" id="deleteName"></span> ?</p>-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" >Hủy</button>-->
+<!--                    <input type="submit" class="btn btn-danger" id="delete_btn" value="Đồng ý"/>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <th:block th:replace="/menu::linkScript"/>
-<script>
-    // Show delete modal
-    function sendCustomerInfo(a) {
-        let id = a.attr('data-id');
-        let name = a.attr('data-name');
-        document.getElementById("idDelete").value = id;
-        document.getElementById("deleteName").innerText = name;
-    }
-</script>
+<!--<script>-->
+<!--    // Show delete modal-->
+<!--    function sendCustomerInfo(a) {-->
+<!--        let id = a.attr('data-id');-->
+<!--        let name = a.attr('data-name');-->
+<!--        document.getElementById("idDelete").value = id;-->
+<!--        document.getElementById("deleteName").innerText = name;-->
+<!--    }-->
+<!--</script>-->
 </html>

@@ -1,6 +1,6 @@
 package furama.model.user_role_entity;
 
-import lombok.Data;
+
 
 import javax.persistence.*;
 import java.io.Serializable;

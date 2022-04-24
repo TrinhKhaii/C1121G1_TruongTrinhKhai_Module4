@@ -13,15 +13,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+
 @Service
 public class CustomerUseServiceService implements ICustomerUseServiceService {
     @Autowired
     private ICustomerUseServiceRepository iCustomerUseServiceRepository;
 
-
     @Override
-    public Page<CustomerUseService> findAllCustomerUseService(String name, Pageable pageable) {
-        return iCustomerUseServiceRepository.findAllByCustomerUseService(name, pageable);
+    public Page<CustomerUseService> findAllByCustomerNameContaining(String name, Pageable pageable) {
+        return iCustomerUseServiceRepository.findAllByCustomerNameContaining(name, pageable);
     }
 }
