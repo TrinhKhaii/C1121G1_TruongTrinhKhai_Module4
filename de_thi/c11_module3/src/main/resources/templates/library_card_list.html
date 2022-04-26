@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Book</title>
+    <th:block th:replace="~{/template_fragment::linkHead}"/>
+</head>
+<body>
+<nav th:replace="~{/template_fragment::header}"></nav>
+<nav th:replace="~{/template_fragment::nav_bar}"></nav>
+<header>
+    <!-- Navbar -->
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+            <!-- Search form -->
+            <form th:action="@{/library-card/search}">
+                <input type="text" name="searchValue" th:value="${searchValue}" placeholder="Name"/>
+                <button class=" border-0" id="search-addon">Search</button>
+            </form>
+            <!-- Right links -->
+        </div>
+    </nav>
+</header>
+<!-- List -->
+<table class="table table-striped table-hover">
+    <thead class="bg-light">
+    <tr>
+        <th>STT</th>
+        <th>Mã mượn sách</th>
+        <th>Tên sách</th>
+        <th>Tác giả</th>
+        <th>Tên học sinh</th>
+        <th>Lớp</th>
+        <th>Ngày mượn</th>
+        <th>Ngày trả</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="libraryCard, loop: ${libraryCards}">
+        <td th:text="${loop.count}"></td>
+        <td th:text="${libraryCard.libraryCardCode}"></td>
+        <td th:text="${libraryCard.book.bookName}"></td>
+        <td th:text="${libraryCard.book.author}"></td>
+        <td th:text="${libraryCard.student.studentName}"></td>
+        <td th:text="${libraryCard.student.className}"></td>
+        <td th:text="${libraryCard.startDate}"></td>
+        <td th:text="${libraryCard.endDate}"></td>
+        <td>
+            <a type="button" class="btn btn-danger btn-sm btn-rounded delete_btn" data-mdb-toggle="modal"
+               data-mdb-target="#deleteModal" th:data-id="${libraryCard.libraryCardId}" th:data-book-name="${libraryCard.book.bookName}" th:data-student-name="${libraryCard.student.studentName}"
+               onclick="sendLibraryCardInfo($(this))">
+                Trả sách
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" th:action="@{/library-card/delete}">
+                <input type="hidden" name="idDelete" id="idDelete">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận trả sách</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Học sinh <span class="text-danger" id="studentName"></span> thực hiện trả sách <span class="text-danger" id="bookName"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" >Hủy</button>
+                    <input type="submit" class="btn btn-danger" id="delete_btn" value="Đồng ý"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<th:block th:replace="/template_fragment::linkScript"/>
+<script>
+    // Show delete modal
+    function sendLibraryCardInfo(a) {
+        let libraryCardId = a.attr('data-id');
+        let bookName = a.attr('data-book-name');
+        let studentName =a.attr('data-student-name');
+        $("#idDelete").val(libraryCardId);
+        $("#studentName").text(studentName);
+        $("#bookName").text(bookName);
+    }
+</script>
+</html>

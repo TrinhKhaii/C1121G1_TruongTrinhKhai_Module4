@@ -15,9 +15,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "customer_use_service")
 public class CustomerUseService {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "contract_id")
-    private Integer id;
+    private String id;
 
     @NotNull
     private String customerCode;
@@ -46,11 +44,11 @@ public class CustomerUseService {
     public CustomerUseService() {
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

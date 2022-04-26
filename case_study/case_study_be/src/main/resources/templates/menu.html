@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -112,20 +112,20 @@
                         Quản lý
                     </a>
                     <!-- Dropdown menu -->
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li>
-                            <a class="dropdown-item" th:href="@{/customer}">Khách hàng</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" th:href="@{/employee}">Nhân viên</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" th:href="@{/service}">Dịch vụ</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" th:href="@{/contract}">Hợp đồng</a>
-                        </li>
-                    </ul>
+                        <ul sec:authorize="isAuthenticated()" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li sec:authorize="hasAnyRole('USER', 'ADMIN')">
+                                <a class="dropdown-item" th:href="@{/customer}">Khách hàng</a>
+                            </li>
+                            <li sec:authorize="hasRole('ADMIN')">
+                                <a class="dropdown-item" th:href="@{/employee}">Nhân viên</a>
+                            </li>
+                            <li sec:authorize="hasAnyRole('USER', 'ADMIN')">
+                                <a class="dropdown-item" th:href="@{/service}">Dịch vụ</a>
+                            </li>
+                            <li sec:authorize="hasAnyRole('USER', 'ADMIN')">
+                                <a class="dropdown-item" th:href="@{/contract}">Hợp đồng</a>
+                            </li>
+                        </ul>
                 </li>
             </ul>
             <!-- Left links -->
@@ -133,6 +133,83 @@
     </div>
     <!-- Container wrapper -->
 </nav>
+
+<!-- Carousel wrapper -->
+<div id="carouselDarkVariant" class="carousel slide carousel-fade carousel-dark" data-mdb-ride="carousel">
+    <!-- Indicators -->
+    <div class="carousel-indicators">
+        <button
+                data-mdb-target="#carouselDarkVariant"
+                data-mdb-slide-to="0"
+                class="active"
+                aria-current="true"
+                aria-label="Slide 1"
+        ></button>
+        <button
+                data-mdb-target="#carouselDarkVariant"
+                data-mdb-slide-to="1"
+                aria-label="Slide 1"
+        ></button>
+        <button
+                data-mdb-target="#carouselDarkVariant"
+                data-mdb-slide-to="2"
+                aria-label="Slide 1"
+        ></button>
+    </div>
+
+    <!-- Inner -->
+    <div style="display: flex; justify-content: center">
+        <div class="carousel-inner" style="width: 70%">
+            <!-- Single item -->
+            <div class="carousel-item active">
+                <img src="https://sn3302files.storage.live.com/y4mzsFnuuPVIbxvmx-gYwsO4wDqRxZpVuVt4Kp7J3PYOL3P21VmwTc_ZFl-xom6zuedMqUfqqPhuXvYPbPeUYZE5f4vzEjVNRFbdykQ12eicQsiktjCzVk8B9bZNQR2iKF_kf3Ik0HKoaWrKRs5cZjrRK28ssZyAD40_QXK7CVO_UEYBdynCW653QI9IiXTVg6oCakAtObXQGKqVawsfSxk4Q/IMG_0783.JPG?psid=1&width=2331&height=1554" class="d-block w-100" alt="Motorbike Smoke"/>
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Hế lô mấy cưng</h5>
+                    <p>Nói về sắc đẹp thì tụi chị là nhất rồi.</p>
+                </div>
+            </div>
+
+            <!-- Single item -->
+            <div class="carousel-item">
+                <img src="https://sn3302files.storage.live.com/y4m4HC-TljgBbFVIjj1N4CA2CAkZWKFafmAtx5FXF5JZCj7Fw7vQgJBx_R8WbqnwLykcqyYSIgDV5_dJJgp8A6Qe6i1CKcpSe8mqNNy0UpvnpATrbvIpIwfIV8xq-Nz2EtBCCD4dzzHR-zx8cUMbusfGvLtcEvanZmepIGGgM_TrvQFrBvKedBsayzblw44UH9BofrPRXWOZkAIdaIl1ko1rw/IMG_1241.JPG?psid=1&width=2331&height=1554" class="d-block w-100" alt="Mountaintop"/>
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>C1121G1 chào anh em nhé</h5>
+                    <p>Anh em C1121G1 mãi đĩnh.</p>
+                </div>
+            </div>
+
+            <!-- Single item -->
+            <div class="carousel-item">
+                <img src="https://sn3302files.storage.live.com/y4mskz_n7RAvJGpa1F8I3yKfZY-odpLAo4NIPM6-Hm0cxBQW12vfeXNTZn0LQOTjd_VOsZFSTtGB2yQr-jcXS72Hx0mJL1udTBkrzOOTg2AwnprJY1426p6btazpSUFxpEG-Uq8FVgXMBMGswywprtXxmefF5jlrV0ODAXJpJHuyykHEs1gVeMQ192bYwSN6pd6obt5rPEUkJ0eqK8xVj-VVQ/IMG_1346.JPG?psid=1&width=2331&height=1554" class="d-block w-100" alt="Woman Reading a Book"/>
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Chơi đồ quá 180p</h5>
+                    <p>Trong cơn mê anh là kẻ nghiện.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inner -->
+
+    <!-- Controls -->
+    <button class="carousel-control-prev" type="button" data-mdb-target="#carouselDarkVariant" data-mdb-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-mdb-target="#carouselDarkVariant" data-mdb-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+<!-- Carousel wrapper -->
+<footer th:fragment="footer" class="bg-light text-center text-lg-start">
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2022 Copyright:
+        <a class="text-dark" href="https://mdbootstrap.com/">Trịnh Khải</a>
+    </div>
+    <!-- Copyright -->
+</footer>
 </body>
 <th:block th:fragment="linkScript">
     <!-- MDB -->

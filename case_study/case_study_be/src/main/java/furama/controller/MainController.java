@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 
+
 @Controller
 public class MainController {
     @GetMapping(value = "")

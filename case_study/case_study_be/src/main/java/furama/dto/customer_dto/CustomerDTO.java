@@ -9,6 +9,7 @@ import furama.dto.PersonDTO;
 import furama.model.customer_entity.Customer;
 import furama.model.customer_entity.CustomerType;
 import furama.service.ICustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -77,6 +78,7 @@ public class CustomerDTO extends PersonDTO implements Validator {
     public boolean supports(Class<?> clazz) {
         return false;
     }
+
 
     @Override
     public void validate(Object target, Errors errors) {

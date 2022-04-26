@@ -90,6 +90,7 @@ public class ContractController {
         contract.setCustomer(contractDTO.getCustomer());
         contract.setEmployee(contractDTO.getEmployee());
         contract.setService(contractDTO.getService());
+        contract.setContractTotalMoney(contract.getService().getServiceCost() + contract.getService().getRentType().getRentTypeCost());
         iContractService.save(contract);
         return "redirect:/contract";
     }

@@ -1,5 +1,6 @@
 package furama.controller;
 
+import furama.dto.ICustomerUseService;
 import furama.dto.customer_dto.CustomerDTO;
 import furama.model.customer_entity.Customer;
 import furama.model.customer_entity.CustomerType;
@@ -9,6 +10,7 @@ import furama.service.ICustomerUseServiceService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 /*
@@ -127,7 +130,9 @@ public class CustomerController {
                                                    @PageableDefault(value = 3) Pageable pageable) {
         ModelAndView modelAndView  = new ModelAndView("/customer/customer_use_service_list");
         String searchValue = search.orElse("");
-        Page<CustomerUseService> customerUseServices = iCustomerUseServiceService.findAllByCustomerNameContaining(searchValue, pageable);
+//        Page<CustomerUseService> customerUseServices = iCustomerUseServiceService.findAllByCustomerNameContaining(searchValue, pageable);
+//        List<CustomerUseService> customerUseServices = iCustomerUseServiceService.findAllCustomerUseService();
+        Page<ICustomerUseService> customerUseServices = iCustomerUseServiceService.findAllCustomerUseServicePage(PageRequest.of(pageable.getPageNumber(), 10));
         modelAndView.addObject("customerUseServices", customerUseServices);
         modelAndView.addObject("searchValue", searchValue);
         return modelAndView;

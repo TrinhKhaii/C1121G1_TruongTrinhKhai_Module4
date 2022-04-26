@@ -33,7 +33,7 @@ public class ContractDTO implements Validator {
     @NotNull(message = "Tiền đặt cọc không được để trống.")
     private Double contractDeposit;
 
-    @NotNull(message = "Tổng tiền không được để trống.")
+
     private Double contractTotalMoney;
 
     private Boolean deleteFlag;
@@ -48,6 +48,7 @@ public class ContractDTO implements Validator {
 
     public ContractDTO() {
         setDeleteFlag(false);
+        setContractTotalMoney(0.0);
     }
 
     public Integer getContractId() {
