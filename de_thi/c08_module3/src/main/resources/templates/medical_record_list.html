@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Book</title>
+    <th:block th:replace="~{/template_fragment::linkHead}"/>
+    <style th:replace="~{template_fragment::css}"></style>
+</head>
+<body>
+<nav th:replace="~{/template_fragment::header}"></nav>
+<nav th:replace="~{/template_fragment::nav_bar}"></nav>
+<header>
+    <!-- Navbar -->
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+            <!-- Search form -->
+            <form th:action="@{/medical-record/search}">
+                <input type="text" name="searchValue" th:value="${searchValue}" placeholder="Name"/>
+                <select name="searchSelect" class="form-select" aria-label="Default select example">
+                    <option selected value="1">Mã bệnh án</option>
+                    <option value="2">Mã bệnh nhân</option>
+                    <option value="3">Tên bệnh nhân</option>
+                </select>
+                <button class=" border-0" id="search-addon">Search</button>
+            </form>
+            <!-- Right links -->
+            <div class="navbar-nav ms-auto d-flex flex-row">
+                <a type="button" th:href="@{/medical-record/create}" class="btn btn-primary me-3">
+                    THÊM MỚI
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
+<!-- List -->
+<table class="table table-striped table-hover">
+    <thead class="bg-light">
+    <tr>
+        <th>STT</th>
+        <th>Mã bệnh án</th>
+        <th>Mã bệnh nhân</th>
+        <th>Tên bệnh nhân</th>
+        <th>Ngày nhập viện</th>
+        <th>Ngày ra viện</th>
+        <th>Lý do nhập viện</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="medicalRecord, loop: ${medicalRecords}">
+        <td th:text="${loop.count}"></td>
+        <td th:text="${medicalRecord.medicalRecordCode}"></td>
+        <td th:text="${medicalRecord.patient.patientCode}"></td>
+        <td th:text="${medicalRecord.patient.patientName}"></td>
+        <td th:text="${medicalRecord.startDate}"></td>
+        <td th:text="${medicalRecord.endDate}"></td>
+        <td th:text="${medicalRecord.reason}"></td>
+        <td>
+            <a type="button" class="btn btn-link btn-sm btn-rounded edit_btn" th:href="@{/medical-record/edit/{id}(id=${medicalRecord.medicalRecordId})}">
+                Sửa
+            </a>
+        </td>
+        <td>
+            <a type="button" class="btn btn-danger btn-sm btn-rounded delete_btn" data-mdb-toggle="modal"
+               data-mdb-target="#deleteModal" th:data-id="${medicalRecord.medicalRecordId}" th:data-name="${medicalRecord.medicalRecordCode}"
+               onclick="sendMedicalRecordInfo($(this))">
+                Xóa
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" th:action="@{/medical-record/delete}">
+                <input type="hidden" name="idDelete" id="idDelete">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có muốn xóa thông tin bệnh án <span class="text-danger" id="medicalRecordCode"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" >Hủy</button>
+                    <input type="submit" class="btn btn-danger" id="delete_btn" value="Đồng ý"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="col-12" style="display: flex; justify-content: flex-end; padding-right: 20px">
+    <a th:href="@{/medical-record(page=${medicalRecords.number - 1}, search=${searchValue})}" th:if="${medicalRecords.hasPrevious()}">Previous</a>
+    <span th:text="${medicalRecords.number + 1}"></span>/<span th:text="${medicalRecords.totalPages}"></span>
+    <a th:href="@{/medical-record(page=${medicalRecords.number + 1}, search=${searchValue})}" th:if="${medicalRecords.hasNext()}">Next</a>
+</div>
+<input type="hidden" id="callSuccessModal" name="callSuccessModal" th:value="${callSuccessModal}">
+<!--success modal-->
+<div id="successModal" class="modal fade">
+    <div class="modal-dialog modal-confirm modal-confirm-success">
+        <div class="modal-content">
+            <div class="modal-header modal-header-success justify-content-center">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE876;</i>
+                </div>
+                <button type="button" class="close" data-mdb-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body text-center">
+                <h4>Great!</h4>
+                <p>Your account has been created successfully.</p>
+                <!--                <button class="btn btn-success" data-mdb-dismiss="modal"><span>Start Exploring</span> <i class="material-icons">&#xE5C8;</i></button>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="/template_fragment::linkScript"/>
+<script>
+    // Show delete modal
+    function sendMedicalRecordInfo(a) {
+        let medicalRecordId = a.attr('data-id');
+        let medicalRecordCode = a.attr('data-name');
+        $("#idDelete").val(medicalRecordId);
+        $("#medicalRecordCode").text(medicalRecordCode);
+    }
+
+    window.addEventListener('load',
+        function() {
+            console.log($('#callSuccessModal').val());
+            console.log($('#callSuccessModal').val() == "true")
+            if ($('#callSuccessModal').val() == "true") {
+                window.setTimeout(function () {
+                    $('#successModal').modal('show');
+                }, 0);
+                window.setTimeout(function () {
+                    $('#successModal').modal('hide');
+                }, 1000);
+            }
+        }, false);
+</script>
+</html>

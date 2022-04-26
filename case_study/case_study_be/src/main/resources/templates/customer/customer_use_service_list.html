@@ -60,7 +60,8 @@
         <td th:text="${customerUseService.attachServiceName}"></td>
         <td th:text="${customerUseService.attachServiceCost}"></td>
         <td th:text="${customerUseService.quantity}"></td>
-        <td th:text="${customerUseService.total}"></td>
+        <td th:text="${#numbers.formatDecimal(customerUseService.total,0,1)}"></td>
+<!--        <td th:text="${customerUseService.total}"></td>-->
 <!--        <td>-->
 <!--            <a type="button" class="btn btn-link btn-sm btn-rounded edit_btn" th:href="@{/customerUseService/edit/{id}(id=${customerUseService.})}">-->
 <!--                Sửa-->

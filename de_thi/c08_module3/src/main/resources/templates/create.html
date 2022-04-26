@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Medical Record</title>
+    <th:block th:replace="~{/template_fragment::linkHead}"/>
+</head>
+<body>
+<div id="header"></div>
+<nav th:replace="~{/template_fragment::header}"></nav>
+<nav th:replace="~{/template_fragment::nav_bar}"></nav>
+
+<div class=" col-4 mx-auto">
+    <form method="post" th:action="@{/medical-record/save}" th:object="${medicalRecordDTO}">
+        <div class="modal-header">
+            <h5 class="modal-title">Thêm mới bệnh án</h5>
+        </div>
+        <div class="modal-body">
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="medicalRecordCode" class="form-control" th:field="*{medicalRecordCode}"/>
+                    <label class="form-label" for="medicalRecordCode">Mã bệnh án<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('medicalRecordCode')}" th:errors="*{medicalRecordCode}"></small>
+            </div>
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="patientCode" class="form-control" th:field="*{patientDTO.patientCode}"/>
+                    <label class="form-label" for="patientCode">Mã bệnh nhân<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('patientDTO.patientCode')}" th:errors="*{patientDTO.patientCode}"></small>
+            </div>
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="patientName" class="form-control" th:field="*{patientDTO.patientName}"/>
+                    <label class="form-label" for="patientName">Tên bệnh nhân<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('patientDTO.patientName')}" th:errors="*{patientDTO.patientName}"></small>
+            </div>
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="date" id="startDate" class="form-control" th:field="*{startDate}"/>
+                    <label class="form-label" for="startDate">Ngày nhập viện<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></small>
+            </div>
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="date" id="endDate" class="form-control" th:field="*{endDate}"/>
+                    <label class="form-label" for="endDate">Ngày ra viện<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></small>
+            </div>
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="reason" class="form-control" th:field="*{reason}"/>
+                    <label class="form-label" for="reason">Lý do nhập viện<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('reason')}" th:errors="*{reason}"></small>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-primary" value="Thêm mới"/>
+        </div>
+    </form>
+</div>
+</body>
+
+<th:block th:replace="/template_fragment::linkScript"/>
+</html>
