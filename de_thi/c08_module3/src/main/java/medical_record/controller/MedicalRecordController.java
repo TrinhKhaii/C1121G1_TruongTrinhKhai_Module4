@@ -18,6 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 /*
@@ -36,18 +39,30 @@ public class MedicalRecordController {
 
     @GetMapping(value = {"", "/search"})
     public ModelAndView showLibraryCardList(@RequestParam("searchValue") Optional<String> search,
+                                            @RequestParam(value = "searchStartDateValue", defaultValue = "1900-01-01", required = false) String startDate,
+                                            @RequestParam(value = "searchEndDateValue", defaultValue = "3000-01-01", required = false) String endDate,
                                             @RequestParam("searchSelect") Optional<Integer> searchSelect,
+                                            @RequestParam("searchDateSelect") Optional<Integer> searchDateSelect,
                                             @PageableDefault(value = 5) Pageable pageable) {
+        String defaultStartDate = "1900-01-01";
+        String defaultEndDate = "3000-01-01";
         ModelAndView modelAndView = new ModelAndView("/medical_record_list");
         String searchValue = search.orElse("");
         Integer searchSelectValue = searchSelect.orElse(1);
+        Integer searchDateSelectValue = searchDateSelect.orElse(1);
         Page<MedicalRecord> medicalRecords = null;
-        if (searchSelectValue == 1) {
-            medicalRecords = iMedicalRecordService.findAllByMedicalRecordCodeContaining(searchValue, pageable);
-        } else if (searchSelectValue == 2) {
-            medicalRecords = iMedicalRecordService.findAllByDeleteFlagAndPatient_PatientCodeContaining(searchValue, pageable);
-        } else if (searchSelectValue == 3) {
-            medicalRecords = iMedicalRecordService.findAllByDeleteFlagAndPatient_PatientNameContaining(searchValue, pageable);
+        if (searchSelectValue == 1 && searchDateSelectValue == 1) {
+            medicalRecords = iMedicalRecordService.findByAll(searchValue, "", "", startDate, endDate, defaultStartDate, defaultEndDate,  pageable);
+        } else if (searchSelectValue == 1 && searchDateSelectValue == 2) {
+            medicalRecords = iMedicalRecordService.findByAll(searchValue, "", "", defaultStartDate, defaultEndDate, startDate, endDate, pageable);
+        } else if (searchSelectValue == 2 && searchDateSelectValue == 1) {
+            medicalRecords = iMedicalRecordService.findByAll("", searchValue, "", startDate, endDate, defaultStartDate, defaultEndDate, pageable);
+        } else if (searchSelectValue == 2 && searchDateSelectValue == 2) {
+            medicalRecords = iMedicalRecordService.findByAll("", searchValue, "", defaultStartDate, defaultEndDate, startDate, endDate, pageable);
+        } else if (searchSelectValue == 3 && searchDateSelectValue == 1) {
+            medicalRecords = iMedicalRecordService.findByAll("", "", searchValue, startDate, endDate, defaultStartDate, defaultEndDate, pageable);
+        } else if (searchSelectValue == 3 && searchDateSelectValue == 2) {
+            medicalRecords = iMedicalRecordService.findByAll("", "", searchValue, defaultStartDate, defaultEndDate, startDate, endDate, pageable);
         }
         modelAndView.addObject("medicalRecords", medicalRecords);
         modelAndView.addObject("searchValue", searchValue);
@@ -118,6 +133,16 @@ public class MedicalRecordController {
             MedicalRecord medicalRecord = medicalRecordOptional.get();
             medicalRecord.setDeleteFlag(true);
             iMedicalRecordService.save(medicalRecord);
+        }
+        return "redirect:/medical-record";
+    }
+
+    @PostMapping(value = "/deleteMultiple")
+    public String deleteMutiMedicalRecord(@RequestParam("idMultiple") Optional<String> idMultiple) {
+        if (idMultiple.isPresent()) {
+            String idMMutipleValue = idMultiple.get();
+            List<String> arr = Arrays.asList(idMMutipleValue.split(","));
+            iMedicalRecordService.setDeleteFlagMutiple(arr);
         }
         return "redirect:/medical-record";
     }

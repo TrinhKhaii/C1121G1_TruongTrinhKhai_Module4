@@ -19,16 +19,33 @@
         <div class="container-fluid">
             <!-- Search form -->
             <form th:action="@{/medical-record/search}">
+            <div class="navbar-nav ms-auto d-flex flex-row">
                 <input type="text" name="searchValue" th:value="${searchValue}" placeholder="Name"/>
                 <select name="searchSelect" class="form-select" aria-label="Default select example">
                     <option selected value="1">Mã bệnh án</option>
                     <option value="2">Mã bệnh nhân</option>
                     <option value="3">Tên bệnh nhân</option>
                 </select>
+
+                <div class="navbar-nav ms-auto d-flex flex-row">
+                    <input type="date" name="searchStartDateValue" th:value="${searchStartDateValue}" placeholder="Start Date"/>
+                    <input type="date" name="searchEndDateValue" th:value="${searchEndDateValue}" placeholder="End Date"/>
+                    <select name="searchDateSelect" class="form-select" aria-label="Default select example">
+                        <option selected value="1">Ngày nhập viện</option>
+                        <option value="2">Ngày xuất viện</option>
+                    </select>
+                </div>
+
                 <button class=" border-0" id="search-addon">Search</button>
+            </div>
             </form>
             <!-- Right links -->
             <div class="navbar-nav ms-auto d-flex flex-row">
+                <button th:onclick="getIdMultiple()" type="button" class="btn btn-danger me-3"
+                        data-mdb-toggle="modal"
+                        data-mdb-target="#modalDeleteMultiple">
+                    Delete Multiple
+                </button>
                 <a type="button" th:href="@{/medical-record/create}" class="btn btn-primary me-3">
                     THÊM MỚI
                 </a>
@@ -40,6 +57,7 @@
 <table class="table table-striped table-hover">
     <thead class="bg-light">
     <tr>
+        <th></th>
         <th>STT</th>
         <th>Mã bệnh án</th>
         <th>Mã bệnh nhân</th>
@@ -53,6 +71,9 @@
     </thead>
     <tbody>
     <tr th:each="medicalRecord, loop: ${medicalRecords}">
+        <td>
+            <input type="checkbox" th:value="${medicalRecord.medicalRecordId}">
+        </td>
         <td th:text="${loop.count}"></td>
         <td th:text="${medicalRecord.medicalRecordCode}"></td>
         <td th:text="${medicalRecord.patient.patientCode}"></td>
@@ -122,6 +143,28 @@
     </div>
 </div>
 
+<!--Xóa nhiều trường -->
+<div class="modal fade" tabindex="-1" id="modalDeleteMultiple">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" id="formDeleteMultiple" th:action="@{/medical-record/deleteMultiple}">
+                <input type="hidden" name="idMultiple" id="idMultiple">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn muốn xóa các trường đã chọn?.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">OK</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <th:block th:replace="/template_fragment::linkScript"/>
 <script>
     // Show delete modal
@@ -145,5 +188,16 @@
                 }, 1000);
             }
         }, false);
+
+    function getIdMultiple() {
+        let array = [];
+        let checkboxes = document.querySelectorAll("input[type=checkbox]:checked");
+        for (let i = 0; i < checkboxes.length; i++) {
+            array.push(checkboxes[i].value);
+        }
+        for (let i = 0; i < array.length; i++) {
+            document.getElementById("idMultiple").value += array[i] + ",";
+        }
+    }
 </script>
 </html>

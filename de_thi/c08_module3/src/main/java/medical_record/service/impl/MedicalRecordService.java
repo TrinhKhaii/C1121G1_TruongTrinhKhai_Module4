@@ -13,7 +13,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+
 @Service
 public class MedicalRecordService implements IMedicalRecordService {
     @Autowired
@@ -52,5 +54,15 @@ public class MedicalRecordService implements IMedicalRecordService {
     @Override
     public Page<MedicalRecord> findAllByDeleteFlagAndPatient_PatientNameContaining(String name, Pageable pageable) {
         return iMedicalRecordRepository.findAllByDeleteFlagAndPatient_PatientNameContaining(false, name, pageable);
+    }
+
+    @Override
+    public Page<MedicalRecord> findByAll(String medicalRecordCode, String patientCode, String patientName, String fromDate1, String toDate1, String fromDate2, String toDate2, Pageable pageable) {
+        return iMedicalRecordRepository.findAllByDeleteFlagAndMedicalRecordCodeContainingAndPatient_PatientCodeContainingAndPatient_PatientNameContainingAndStartDateBetweenAndEndDateBetween(false, medicalRecordCode, patientCode, patientName, fromDate1, toDate1, fromDate2, toDate2, pageable);
+    }
+
+    @Override
+    public void setDeleteFlagMutiple(List<String> idMutiple) {
+        iMedicalRecordRepository.setDeleteFlagMutiple(idMutiple);
     }
 }
