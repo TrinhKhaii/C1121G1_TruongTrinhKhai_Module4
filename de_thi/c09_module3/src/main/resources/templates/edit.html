@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Edit</title>
+    <th:block th:replace="~{/template_fragment::linkHead}"/>
+</head>
+<body>
+<div id="header"></div>
+<nav th:replace="~{/template_fragment::header}"></nav>
+<nav th:replace="~{/template_fragment::nav_bar}"></nav>
+
+<div class=" col-4 mx-auto">
+    <form method="post" th:action="@{/product/update}" th:object="${productDTO}">
+        <div class="modal-header">
+            <h5 class="modal-title">Edit product information</h5>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" name="product_id" th:field="*{productId}">
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="productName" class="form-control" th:field="*{productName}"/>
+                    <label class="form-label" for="productName">Name<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('productName')}" th:errors="*{productName}"></small>
+            </div>
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="productPrice" class="form-control" th:field="*{productPrice}"/>
+                    <label class="form-label" for="productPrice">Price<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('productPrice')}" th:errors="*{productPrice}"></small>
+            </div>
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="quantity" class="form-control" th:field="*{quantity}"/>
+                    <label class="form-label" for="quantity">Quantity<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></small>
+            </div>
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="productColor" class="form-control" th:field="*{productColor}"/>
+                    <label class="form-label" for="productColor">Color<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('productColor')}" th:errors="*{productColor}"></small>
+            </div>
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="description" class="form-control" th:field="*{description}"/>
+                    <label class="form-label" for="description">Description<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></small>
+            </div>
+
+            <label class="form-label" for="gender">Category</label>
+            <select th:field="*{category}" id="gender" class="form-control mb-4">
+                <option th:each="item: ${categories}" th:value="${item.categoryId}" th:text="${item.categoryName}"></option>
+            </select>
+
+        </div>
+        <div class="modal-footer">
+            <!--            <a th:href="@{/customer}" type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Đóng</a>-->
+            <input type="submit" class="btn btn-primary" value="Cập nhật"/>
+        </div>
+    </form>
+</div>
+</body>
+
+<th:block th:replace="/template_fragment::linkScript"/>
+</html>
