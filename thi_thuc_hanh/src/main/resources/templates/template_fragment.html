@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Thi thuc hanh</title>
+  <th:block th:fragment="linkHead">
+    <!-- Font Awesome -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+            rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.css"
+            rel="stylesheet"
+    />
+  </th:block>
+  <style th:fragment="css">
+    body {
+      font-family: 'Varela Round', sans-serif;
+    }
+    .modal-confirm {
+      color: #434e65;
+      width: 525px;
+    }
+    .modal-confirm .modal-content {
+      padding: 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: none;
+    }
+    .modal-confirm-danger .modal-header-danger {
+      background: #e85e6c;
+      border-bottom: none;
+      position: relative;
+      text-align: center;
+      margin: -20px -20px 0;
+      border-radius: 5px 5px 0 0;
+      padding: 35px;
+    }
+
+    .modal-confirm-success .modal-header-success {
+      background: #47c9a2;
+      border-bottom: none;
+      position: relative;
+      text-align: center;
+      margin: -20px -20px 0;
+      border-radius: 5px 5px 0 0;
+      padding: 35px;
+    }
+    .modal-confirm h4 {
+      text-align: center;
+      font-size: 36px;
+      margin: 10px 0;
+    }
+    .modal-confirm .form-control, .modal-confirm .btn {
+      min-height: 40px;
+      border-radius: 3px;
+    }
+    .modal-confirm .close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      color: #fff;
+      text-shadow: none;
+      opacity: 0.5;
+    }
+    .modal-confirm .close:hover {
+      opacity: 0.8;
+    }
+    .modal-confirm .icon-box {
+      color: #fff;
+      width: 95px;
+      height: 95px;
+      display: inline-block;
+      border-radius: 50%;
+      z-index: 9;
+      border: 5px solid #fff;
+      padding: 15px;
+      text-align: center;
+    }
+    .modal-confirm .icon-box i {
+      font-size: 58px;
+      margin: -2px 0 0 -2px;
+    }
+    .modal-confirm.modal-dialog {
+      margin-top: 80px;
+    }
+    .modal-confirm .btn, .modal-confirm .btn:active {
+      color: #fff;
+      border-radius: 4px;
+      background: #eeb711 !important;
+      text-decoration: none;
+      transition: all 0.4s;
+      line-height: normal;
+      border-radius: 30px;
+      margin-top: 10px;
+      padding: 6px 20px;
+      min-width: 150px;
+      border: none;
+    }
+    .modal-confirm .btn:hover, .modal-confirm .btn:focus {
+      background: #eda645 !important;
+      outline: none;
+    }
+    .trigger-btn {
+      display: inline-block;
+      margin: 100px auto;
+    }
+  </style>
+</head>
+<body>
+<!--<div id="header"></div>-->
+<!-- Navbar -->
+<nav th:fragment="header" class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- Container wrapper -->
+  <div class="container">
+    <!-- Navbar brand -->
+    <a class="navbar-brand me-2" href="https://mdbgo.com/">
+      <img
+              src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+              height="16"
+              alt="Logo"
+              loading="lazy"
+              style="margin-top: -1px;"
+      />
+    </a>
+
+    <!-- Toggle button -->
+    <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarButtonsExample"
+            aria-controls="navbarButtonsExample"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarButtonsExample">
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="#">C1121G1 - Trương Trịnh Khải</a>
+        </li>
+      </ul>
+      <!-- Left links -->
+      <div class="d-flex align-items-center">
+      </div>
+    </div>
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
+<nav th:fragment="nav_bar" class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Toggle button -->
+    <button
+            class="navbar-toggler"
+            type="button"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#navbarLeftAlignExample"
+            aria-controls="navbarLeftAlignExample"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{/promotional}">Trang chủ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Về chúng tôi</a>
+        </li>
+      </ul>
+      <!-- Left links -->
+    </div>
+  </div>
+  <!-- Container wrapper -->
+</nav>
+
+
+<footer th:fragment="footer" class="bg-light text-center text-lg-start">
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2022 Copyright:
+    <a class="text-dark" href="https://mdbootstrap.com/">Trịnh Khải</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+</body>
+<th:block th:fragment="linkScript">
+  <!-- MDB -->
+  <script
+          type="text/javascript"
+          src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.11.0/mdb.min.js"
+  ></script>
+  <!-- AJAX -->
+  <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+  <script src="/js/jquery-3.6.0.min.js"></script>
+  <!-- JQUERY -->
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<!--  Modal -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</th:block>
+
+</html>

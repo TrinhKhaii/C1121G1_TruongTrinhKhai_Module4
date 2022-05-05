@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Promotional</title>
+    <th:block th:replace="~{/template_fragment::linkHead}"/>
+</head>
+<body>
+<div id="header"></div>
+<nav th:replace="~{/template_fragment::header}"></nav>
+<nav th:replace="~{/template_fragment::nav_bar}"></nav>
+
+<div class=" col-4 mx-auto">
+    <form method="post" th:action="@{/promotional/update}" th:object="${promotionalDTO}">
+        <div class="modal-header">
+            <h5 class="modal-title">Chỉnh sửa khuyến mãi</h5>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" name="promotionalId" th:field="*{promotionalId}">
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="text" id="title" class="form-control" th:field="*{title}"/>
+                    <label class="form-label" for="title">Tiêu đề<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></small>
+            </div>
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="date" id="startDate" class="form-control" th:field="*{startDate}"/>
+                    <label class="form-label" for="startDate">Ngày bắt đầu<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></small>
+            </div>
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="date" id="endDate" class="form-control" th:field="*{endDate}"/>
+                    <label class="form-label" for="endDate">Ngày kết thúc<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></small>
+            </div>
+
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <input type="number" id="discountRate" class="form-control" th:field="*{discountRate}"/>
+                    <label class="form-label" for="discountRate">Mức giảm giá<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('discountRate')}" th:errors="*{discountRate}"></small>
+            </div>
+
+            <div class="form-group mb-4">
+                <div class="form-outline">
+                    <textarea type="text" id="detail" class="form-control" th:field="*{detail}"/>
+                    <label class="form-label" for="detail">Chi tiết<span class="text-danger">(*)</span></label>
+                </div>
+                <small class="text-danger" th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}"></small>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <input type="submit" class="btn btn-success" value="Cập nhật"/>
+        </div>
+    </form>
+</div>
+</body>
+
+<th:block th:replace="/template_fragment::linkScript"/>
+</html>

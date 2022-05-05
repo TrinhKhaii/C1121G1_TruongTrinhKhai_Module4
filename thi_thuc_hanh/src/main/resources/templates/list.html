@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Promotional</title>
+    <th:block th:replace="~{/template_fragment::linkHead}"/>
+    <style th:replace="~{template_fragment::css}"></style>
+</head>
+<body>
+<nav th:replace="~{/template_fragment::header}"></nav>
+<nav th:replace="~{/template_fragment::nav_bar}"></nav>
+<header>
+    <!-- Navbar -->
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+            <!-- Search form -->
+            <form th:action="@{/promotional/search}">
+                <div class="navbar-nav ms-auto d-flex flex-row">
+                    <div class="form-outline">
+                        <input type="text" name="searchDiscountRateValue" id="searchDiscountRateValue" class="form-control"/>
+                        <label class="form-label" for="searchDiscountRateValue">Mức giảm giá</label>
+                    </div>
+                    <div class="form-outline">
+                        <input type="date" id="searchStartDate1Value" name="searchStartDate1Value" class="form-control" />
+                        <label class="form-label" for="searchStartDate1Value">Ngày bắt đầu từ</label>
+                    </div>
+                    <div class="form-outline">
+                        <input type="date" id="searchEndDate1Value" name="searchEndDate1Value" class="form-control" />
+                        <label class="form-label" for="searchEndDate1Value">Đến</label>
+                    </div>
+                    <div class="form-outline">
+                        <input type="date" id="searchStartDate2Value" name="searchStartDate2Value" class="form-control" />
+                        <label class="form-label" for="searchStartDate2Value">Ngày kết thúc từ</label>
+                    </div>
+                    <div class="form-outline">
+                        <input type="date" id="searchEndDate2Value" name="searchEndDate2Value" class="form-control" />
+                        <label class="form-label" for="searchEndDate2Value">Đến</label>
+                    </div>
+                    <button  class="btn btn-warning" value="Cập nhật">Search</button>
+                </div>
+            </form>
+            <!-- Right links -->
+            <div class="navbar-nav ms-auto d-flex flex-row">
+<!--                <button th:onclick="getIdMultiple()" type="button" class="btn btn-danger me-3"-->
+<!--                        data-mdb-toggle="modal"-->
+<!--                        data-mdb-target="#modalDeleteMultiple">-->
+<!--                    Delete Multiple-->
+<!--                </button>-->
+                <a type="button" th:href="@{/promotional/create}" class="btn btn-success me-3">
+                    THÊM MỚI
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
+<!-- List -->
+<table class="table table-striped table-hover">
+    <thead class="bg-light">
+    <tr>
+<!--        <th></th>-->
+        <th>STT</th>
+        <th>Tiêu đề</th>
+        <th>Thời gian bắt đầu</th>
+        <th>Thời gian kết thúc</th>
+        <th>Mức giảm giá</th>
+        <th>Chi tiết</th>
+        <th>Sửa</th>
+        <th>Xóa</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="promotional, loop: ${promotionals}">
+<!--        <td>-->
+<!--            <input type="checkbox" th:value="${product.productId}">-->
+<!--        </td>-->
+        <td th:text="${loop.count}"></td>
+        <td th:text="${promotional.title}"></td>
+        <td th:text="${promotional.startDate}"></td>
+        <td th:text="${promotional.endDate}"></td>
+        <td th:text="${#numbers.formatDecimal(promotional.discountRate,0,1)}"></td>
+        <td th:text="${promotional.detail}"></td>
+        <td>
+            <a type="button" class="btn btn-link btn-sm btn-rounded edit_btn" th:href="@{/promotional/edit/{id}(id=${promotional.promotionalId})}">
+                Sửa
+            </a>
+        </td>
+        <td>
+            <a type="button" class="btn btn-danger btn-sm btn-rounded delete_btn" data-mdb-toggle="modal"
+               data-mdb-target="#deleteModal" th:data-id="${promotional.promotionalId}" th:data-name="${promotional.title}"
+               onclick="sendPromotionalInfo($(this))">
+                Xóa
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" th:action="@{/promotional/delete}">
+                <input type="hidden" name="idDelete" id="idDelete">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận</h5>
+                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có muốn xóa chương trình khuyến mãi <span class="text-danger" id="medicalRecordCode"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal" >Hủy</button>
+                    <input type="submit" class="btn btn-danger" id="delete_btn" value="Đồng ý"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--<div class="col-12" style="display: flex; justify-content: flex-end; padding-right: 20px">-->
+<!--    <a th:href="@{/product(page=${medicalRecords.number - 1}, search=${searchValue})}" th:if="${medicalRecords.hasPrevious()}">Previous</a>-->
+<!--    <span th:text="${medicalRecords.number + 1}"></span>/<span th:text="${medicalRecords.totalPages}"></span>-->
+<!--    <a th:href="@{/product(page=${medicalRecords.number + 1}, search=${searchValue})}" th:if="${medicalRecords.hasNext()}">Next</a>-->
+<!--</div>-->
+<input type="hidden" id="callSuccessModal" name="callSuccessModal" th:value="${callSuccessModal}">
+<!--success modal-->
+<div id="successModal" class="modal fade">
+    <div class="modal-dialog modal-confirm modal-confirm-success">
+        <div class="modal-content">
+            <div class="modal-header modal-header-success justify-content-center">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE876;</i>
+                </div>
+                <button type="button" class="close" data-mdb-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body text-center">
+                <h4>TUYỆT!</h4>
+                <p>Thành công.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Xóa nhiều trường -->
+<!--<div class="modal fade" tabindex="-1" id="modalDeleteMultiple">-->
+<!--    <div class="modal-dialog">-->
+<!--        <div class="modal-content">-->
+<!--            <form method="post" id="formDeleteMultiple" th:action="@{/promotional/deleteMultiple}">-->
+<!--                <input type="hidden" name="idMultiple" id="idMultiple">-->
+<!--                <div class="modal-header">-->
+<!--                    <h5 class="modal-title">Xác nhận</h5>-->
+<!--                    <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <p>Bạn muốn xóa các sản phẩm đã chọn?.</p>-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>-->
+<!--                    <button type="submit" class="btn btn-primary">OK</button>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+<th:block th:replace="/template_fragment::linkScript"/>
+<script>
+    // Show delete modal
+    function sendPromotionalInfo(a) {
+        let medicalRecordId = a.attr('data-id');
+        let medicalRecordCode = a.attr('data-name');
+        $("#idDelete").val(medicalRecordId);
+        $("#medicalRecordCode").text(medicalRecordCode);
+    }
+
+    window.addEventListener('load',
+        function() {
+            console.log($('#callSuccessModal').val());
+            console.log($('#callSuccessModal').val() == "true")
+            if ($('#callSuccessModal').val() == "true") {
+                window.setTimeout(function () {
+                    $('#successModal').modal('show');
+                }, 0);
+                window.setTimeout(function () {
+                    $('#successModal').modal('hide');
+                }, 1000);
+            }
+        }, false);
+
+    // function getIdMultiple() {
+    //     let array = [];
+    //     let checkboxes = document.querySelectorAll("input[type=checkbox]:checked");
+    //     for (let i = 0; i < checkboxes.length; i++) {
+    //         array.push(checkboxes[i].value);
+    //     }
+    //     for (let i = 0; i < array.length; i++) {
+    //         document.getElementById("idMultiple").value += array[i] + ",";
+    //     }
+    // }
+</script>
+</html>
